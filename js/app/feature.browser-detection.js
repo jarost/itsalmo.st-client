@@ -9,7 +9,7 @@
 	page.features.push(function(app){
 			
 		if (navigator.userAgent.match(/iPad/i) != null) {
-			$('body').addClass('broswer-ipad');
+			$('body').addClass('browser-ipad');
 		}
 			
 	});
