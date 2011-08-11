@@ -194,7 +194,9 @@
 			"time to rock",
 			"happy hour",
 			"party time",
-			'for cupcakes'
+			"cupcake time",
+			"snack time",
+			"product launch"
 		]);
 		
 		(function() {
