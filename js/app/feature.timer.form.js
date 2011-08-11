@@ -196,6 +196,10 @@
 			"party time",
 			"cupcake time",
 			"snack time",
+			"man time",
+			"groundhog day",
+			"the weekend",
+			"sexy time",
 			"product launch"
 		]);
 		
