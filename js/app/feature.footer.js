@@ -36,7 +36,7 @@
 				elements.social.stop().css('visibility','visible').animate({
 					'opacity':1.0
 				},500,function(){
-					elements.social.css('opacity','none');
+					$(this).css('opacity','none');
 				});
 			}
 		});
@@ -48,7 +48,7 @@
 			elements.share_button.animate({
 				opacity:1.0
 			},400,function(){
-				
+				$(this).css('opacity','none');
 			});
 			
 			url = 'http://itsalmo.st/#' + window.escape(d.id);
@@ -90,7 +90,9 @@
 			elements.modal.overlay.fadeIn(600);
 			elements.modal.container.css('opacity',0.0).show().delay(400).animate({
 				opacity:1.0
-			},600);
+			},600,function(){
+				elements.modal.container.css('opacity','none');
+			});
 			
 			//centers the modal when it is shown;
 			(function(ele){
