@@ -35,12 +35,21 @@
 			} else {
 				elements.social.stop().css('visibility','visible').animate({
 					'opacity':1.0
-				},500);
+				},500,function(){
+					elements.social.css('opacity','none');
+				});
 			}
 		});
 		
 		app.events.bind('timer.manager.timerLoaded',function(e,d){
 			var url, twitter_url, facebook_url;
+			
+			elements.share_button.removeClass('disabled');
+			elements.share_button.animate({
+				opacity:1.0
+			},400,function(){
+				
+			});
 			
 			url = 'http://itsalmo.st/#' + window.escape(d.id);
 			twitter_url = 'http://twitter.com/share?url=' + window.escape(url) + '&text=' + window.escape('It\'s Almost ' + d.name);
@@ -50,6 +59,14 @@
 			elements.modal.url_text.text(url);
 			elements.modal.twitter_link.attr('href',twitter_url);
 			elements.modal.facebook_link.attr('href',facebook_url);
+		});
+		
+		app.events.bind('timer.view.timerExpired',function(){
+			elements.share_button.animate({
+				opacity:0.25
+			},400,function(){
+				elements.share_button.addClass('disabled');
+			});
 		});
 		
 		elements.modal.twitter_link.bind('click',function(e,d){

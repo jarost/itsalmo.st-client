@@ -40,6 +40,7 @@
 			elements.date.get(0).value = (future.getMonth()+1)+'/'+future.getDate()+'/'+future.getFullYear();
 			elements.time.hour.get(0).value = ((future.getHours() > 12) ? future.getHours() - 12 : future.getHours());
 			elements.time.minute.get(0).value = future.getMinutes();
+			fixMinutes();
 			elements.time.period.get(0).value = ((future.getHours() > 12) ? 'PM' : 'AM');
 		}
 		
@@ -60,7 +61,6 @@
 			{
 				tempTimerId = tempTimerId.replace(new RegExp(invalidCharacters[i],'g'),'');
 			}
-			//tempTimerId.replace(/\//g, '').replace(/\\/g, '');
 			if(tempTimerId == oldTempTimerId && !append_random){
 				return;
 			}
@@ -163,7 +163,7 @@
 				dom.stop().css('opacity',0.0).show().animate({
 					opacity:1.0
 				},500,function(){
-					
+					dom.css('opacity','none');
 				});
 			} else {
 				newTimerId = null;
@@ -227,7 +227,7 @@
 					clearTimeout(hint_timer);
 				}
 				tc.jQ('.countdown-name-empty-overlay').stop().animate({
-					opacity:0.0,
+					opacity:0.0
 				},150).css('display','none').addClass('hidden');
 			});
 			tc.jQ('#countdown-name').blur(function() {
@@ -236,7 +236,7 @@
 				}
 				hint_timer = setTimeout(function(){
 					tc.jQ('.countdown-name-empty-overlay').css('display','block').animate({
-						opacity:0.35,
+						opacity:0.35
 					},150,function(){
 						hint_timer = setTimeout(changeText, 1500);
 					}).removeClass('hidden');
@@ -255,6 +255,7 @@
 		elements.time.minute.blur(function() { 
 			fixMinutes();
 		});
+		
 		function fixMinutes() {
 			var v = elements.time.minute.val();
 			if (v=='0'||v=='1'||v=='2'||v=='3'||v=='4'||v=='5'||v=='6'||v=='7'||v=='8'||v=='9') {

@@ -99,6 +99,7 @@
 				return true;
 			},
 			expired:function(){
+				app.events.trigger('timer.view.timerExpired');
 				favicon.setFavicon("./img/favicon/favicon-ani.gif");
 				elements.qualifier.text('It\'s');
 				document.title = 'It\'s ' + timer.name;
@@ -137,12 +138,12 @@
 				dom.stop().css('opacity',0.0).show().animate({
 					opacity:1.0
 				},500,function(){
+					dom.css('opacity','none');
 				});
 				
 			}
 		});
 		
-		//cycle();
 		
 		// Vertical centering
 		function vertCenter(ele) {
