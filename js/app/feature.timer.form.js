@@ -36,17 +36,21 @@
 			watchKeypress: true
 		});
 		
-		elements.date.bind("validationFail", function(e, d) {
-			var $field = $(this),
-			    $note = $field.next(".validation-notice");
-			if (!$note.length) {
-				$note = $("<div class='validation-notice'></div>");
-				$field.after($note);
-			}
-			$note.html("Oops! We need a valid date, like 11/28/2011");
-		}).bind("validationPass", function(e, d) {
-			$(this).next(".validation-notice").remove();
-		});
+		function validationHint(element, note) {
+			element.bind("validationFail", function(e, d) {
+				var $field = $(this),
+				    $note = $field.next(".validation-notice");
+				if (!$note.length) {
+					$note = $("<div class='validation-notice'></div>");
+					$field.after($note);
+				}
+				$note.html(note);
+			}).bind("validationPass", function(e, d) {
+				$(this).next(".validation-notice").remove();
+			});
+		}
+		
+		validationHint(elements.date, "Oops! We need a valid date, like 11/28/2011");
 		
 		function clear_form(){
 			var future;
