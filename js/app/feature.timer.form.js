@@ -1,14 +1,15 @@
 (function(window) {
 	
 	var page = window.page,
-			log = new NI.Logging({
-				moduleName:'Feature(Timer.Create)',
-				enabled:true
-			});
+	    NI = window.NI,
+	    log = new NI.Logging({
+	    	moduleName:'Feature(Timer.Create)',
+	    	enabled:true
+	    });
 			
 	page.features.push(function(app){
 		
-		var dom, elements, lookup_timer, newTimerId, tempTimerId, oldTempTimerId;
+		var dom, elements, lookup_timer, newTimerId, tempTimerId, oldTempTimerId, vm;
 		
 		dom = $('.pane.start-pane');
 		
@@ -26,6 +27,26 @@
 			},
 			start_btn:dom.find('#start-btn')
 		};
+		
+		vm = new NI.ValidationManager({
+			$mother: dom,
+			spec: [
+				{element: elements.date, validators:["date"]}
+			],
+			watchKeypress: true
+		});
+		
+		elements.date.bind("validationFail", function(e, d) {
+			var $field = $(this),
+			    $note = $field.next(".validation-notice");
+			if (!$note.length) {
+				$note = $("<div class='validation-notice'></div>");
+				$field.after($note);
+			}
+			$note.html("Oops! We need a valid date, like 11/28/2011");
+		}).bind("validationPass", function(e, d) {
+			$(this).next(".validation-notice").remove();
+		});
 		
 		function clear_form(){
 			var future;
@@ -99,13 +120,20 @@
 		
 		function validate_and_submit(){
 			
+			if (!vm.validate()) {
+				return false;
+			}
+			
 			if(!elements.name.val().length){
 				return false;
 			}
 			
-			date = elements.date.val().split('/');
-			if(date.length != 3){
+			date = elements.date.val();//.split('/');
+			if (!NI.is.date(date)) {
+				elements.date.addClass("state-invalid");
 				return false;
+			} else {
+				
 			}
 			
 			date = new Date(
