@@ -1,1 +1,4 @@
+.pane input[type="text"],
+#timeperiod-picker { font-weight: 600 }
+
 .share-pane .modal .gradient { display:none; }

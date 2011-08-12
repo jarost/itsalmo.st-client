@@ -13,6 +13,7 @@
 		dom = $('.footer');
 		
 		elements = {
+			body:$('body'),
 			social:dom.find('.social'),
 			share_button:dom.find('.share-btn'),
 			modal:{
@@ -87,12 +88,17 @@
 		
 		/* handle modal hiding and showing */
 		elements.share_button.bind('click',function() {
-			elements.modal.overlay.fadeIn(600);
-			elements.modal.container.css('opacity',0.0).show().delay(400).animate({
-				opacity:1.0
-			},600,function(){
-				elements.modal.container.css('opacity','none');
-			});
+			if (elements.body.hasClass('browser-ipad')) {
+				elements.modal.overlay.show();
+				elements.modal.container.show();
+			} else {
+				elements.modal.overlay.fadeIn(600);
+				elements.modal.container.css('opacity',0.0).show().delay(400).animate({
+					opacity:1.0
+				},600,function(){
+					elements.modal.container.css('opacity','none');
+				});
+			};
 			
 			//centers the modal when it is shown;
 			(function(ele){
@@ -105,8 +111,13 @@
 		
 		tc.jQ('#share-done-btn, .modal-overlay').click(function(e) {
 			e.preventDefault();
-			elements.modal.container.fadeOut(250);
-			elements.modal.overlay.delay(150).fadeOut(400);
+			if (elements.body.hasClass('browser-ipad')) {
+				elements.modal.overlay.hide();
+				elements.modal.container.hide();
+			} else {
+				elements.modal.container.fadeOut(250);
+				elements.modal.overlay.delay(150).fadeOut(400);
+			};
 		});
 		
 	});
