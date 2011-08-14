@@ -31,7 +31,35 @@
 		vm = new NI.ValidationManager({
 			$mother: dom,
 			spec: [
-				{element: elements.date, validators:["date"]}
+				{
+					element: elements.name, 
+					validators:["required"]
+				},
+				{
+					element: elements.date, 
+					validators:["required", "date"]
+				},
+				{
+					element: elements.time.hour,
+					validators:["required", "number", NI.ValidationManager.makeRangeValidator(1, 12)]
+				},
+				{
+					element: elements.time.minute,
+					validators:["required", "number", NI.ValidationManager.makeRangeValidator(0, 59)]
+				},
+				{
+					element: elements.time.period,
+					validators:[
+						"required",
+						function(value) {
+							value = value.toLowerCase();
+							if (value !== "am" && value !== "pm") {
+								return { valid: false, errors:["This is not a valid period"] };
+							}
+							return { valid: true };
+						}
+					]
+				}
 			],
 			watchKeypress: true
 		});
@@ -39,18 +67,20 @@
 		function validationHint(element, note) {
 			element.bind("validationFail", function(e, d) {
 				var $field = $(this),
-				    $note = $field.next(".validation-notice");
+				    $note = $field.parent().find(".validation-notice");
 				if (!$note.length) {
 					$note = $("<div class='validation-notice'></div>");
-					$field.after($note);
+					$field.parent().append($note);
 				}
 				$note.html(note);
 			}).bind("validationPass", function(e, d) {
-				$(this).next(".validation-notice").remove();
+				$(this).parent().find(".validation-notice").remove();
 			});
 		}
 		
 		validationHint(elements.date, "Oops! We need a valid date, like 11/28/2011");
+		validationHint(elements.time.hour, "Oops! We need a valid time, like 12:35 PM");
+		validationHint(elements.time.minute, "Oops! We need a valid time, like 12:35 PM");
 		
 		function clear_form(){
 			var future;
@@ -123,6 +153,7 @@
 		};
 		
 		function validate_and_submit(){
+			var date;
 			
 			if (!vm.validate()) {
 				return false;
@@ -132,13 +163,7 @@
 				return false;
 			}
 			
-			date = elements.date.val();//.split('/');
-			if (!NI.is.date(date)) {
-				elements.date.addClass("state-invalid");
-				return false;
-			} else {
-				
-			}
+			date = elements.date.val().split('/');
 			
 			date = new Date(
 				((date[2].length == 4) ? date[2] : '20'+date[2]),
@@ -254,7 +279,7 @@
 					});
 					i++;
 				}
-				hint_timer = setTimeout(changeText,3000);
+				hint_timer = setTimeout(changeText,5000);
 			}
 
 			tc.jQ('.countdown-name-empty-overlay').click(function() {
@@ -283,13 +308,6 @@
 		})();
 		
 		
-		/* constrain minutes and hours to acceptable values  */
-		elements.time.hour.blur(function() { 
-			var v = elements.time.hour.val();
-			if (isNaN(v) || v < 1 || v > 12) {
-				elements.time.hour.val('12');
-			}
-		});
 		elements.time.minute.blur(function() { 
 			fixMinutes();
 		});
@@ -363,10 +381,6 @@
 		});
 		elements.time.period.blur(function() {
 			elements.time.period_picker.slideUp(200);
-			var v = elements.time.period.val();
-			if (v!='am' && v!='AM' && v!='aM' && v!='Am' && v!='pm' && v!='PM' && v!='pM' && v!='Pm' ) {
-				elements.time.period.val('AM');
-			}
 		});
 		
 		elements.time.period_picker.find('a').click(function() {
