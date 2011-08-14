@@ -9,7 +9,7 @@
 			
 	page.features.push(function(app){
 		
-		var dom, elements, lookup_timer, newTimerId, tempTimerId, oldTempTimerId, vm;
+		var dom, elements, lookup_timer, newTimerId, tempTimerId, oldTempTimerId, validationManager;
 		
 		dom = $('.pane.start-pane');
 		
@@ -28,7 +28,7 @@
 			start_btn:dom.find('#start-btn')
 		};
 		
-		vm = new NI.ValidationManager({
+		validationManager = new NI.ValidationManager({
 			$mother: dom,
 			spec: [
 				{
@@ -64,23 +64,56 @@
 			watchKeypress: true
 		});
 		
-		function validationHint(element, note) {
+		function validationHint(element, hint) {
 			element.bind("validationFail", function(e, d) {
 				var $field = $(this),
-				    $note = $field.parent().find(".validation-notice");
-				if (!$note.length) {
-					$note = $("<div class='validation-notice'></div>");
-					$field.parent().append($note);
+				    $hint = $field.parent().find(".validation-notice");
+				if (!$hint.length) {
+					$hint = $("<div class='validation-notice'></div>");
+					$field.parent().append($hint);
 				}
-				$note.html(note);
+				$hint.html($.isFunction(hint) ? hint() : hint);
+				
 			}).bind("validationPass", function(e, d) {
 				$(this).parent().find(".validation-notice").remove();
 			});
 		}
+				
+		validationHint(elements.date, function() {
+			return "Oops! We need a valid date, like "+ randomFutureDateStr();
+		});
 		
-		validationHint(elements.date, "Oops! We need a valid date, like 11/28/2011");
-		validationHint(elements.time.hour, "Oops! We need a valid time, like 12:35 PM");
-		validationHint(elements.time.minute, "Oops! We need a valid time, like 12:35 PM");
+		$.each([elements.time.hour, elements.time.minute, elements.time.period], function(i, element) {
+			validationHint(element, function() {
+				return "Oops! We need a valid time, like "+ randomTimeStr();
+			});
+		});
+		
+		function randomFutureDateStr(maxDays) {
+			var future, m, d, y;
+			
+			future = new Date();
+			future.setTime(future.getTime() + (NI.math.random(1, maxDays || 100)*24*60*60*1000));
+			
+			m = future.getMonth() + 1;
+			if (m < 10) { m = "0" + m; }
+			d = future.getDate();
+			if (d < 10) { d = "0" + d; }
+			y = future.getFullYear();
+			
+			return (m +"/"+ d +"/"+ y);
+		}
+		
+		function randomTimeStr() {
+			var h, m, p;
+			
+			h =  window.Math.floor(NI.math.random(1, 13));
+			m = window.Math.floor(NI.math.random(0, 60));
+			if (m < 10) { m = "0" + m; }
+			p = (NI.math.random() < 0.5) ? "AM" : "PM";
+			
+			return h +":"+ m +" "+ p;
+		}
 		
 		function clear_form(){
 			var future;
@@ -155,11 +188,7 @@
 		function validate_and_submit(){
 			var date;
 			
-			if (!vm.validate()) {
-				return false;
-			}
-			
-			if(!elements.name.val().length){
+			if (!validationManager.validate()) {
 				return false;
 			}
 			
@@ -186,7 +215,6 @@
 			});
 			
 			return true;
-			
 		};
 		
 		elements.name.bind('change keyup',function(e,d){
@@ -379,13 +407,13 @@
 				'width': (inputWidth - 20) + 'px'
 			}).slideDown(400);
 		});
-		elements.time.period.blur(function() {
+		elements.time.period.blur(function(e) {
 			elements.time.period_picker.slideUp(200);
 		});
 		
-		elements.time.period_picker.find('a').click(function() {
-			var theText = tc.jQ(this).text();
-			elements.time.period.val(theText);
+		elements.time.period_picker.find('a').click(function(e) {
+			e.preventDefault();
+			elements.time.period.val($(this).text());
 		});
 		
 		
