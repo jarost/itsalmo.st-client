@@ -1,14 +1,15 @@
 (function(window) {
 	
 	var page = window.page,
-			log = new NI.Logging({
-				moduleName:'Feature(Timer.Create)',
-				enabled:true
-			});
+	    NI = window.NI,
+	    log = new NI.Logging({
+	    	moduleName:'Feature(Timer.Create)',
+	    	enabled:true
+	    });
 			
 	page.features.push(function(app){
 		
-		var dom, elements, lookup_timer, newTimerId, tempTimerId, oldTempTimerId;
+		var dom, elements, lookup_timer, newTimerId, tempTimerId, oldTempTimerId, validationManager;
 		
 		dom = $('.pane.start-pane');
 		
@@ -26,6 +27,93 @@
 			},
 			start_btn:dom.find('#start-btn')
 		};
+		
+		validationManager = new NI.ValidationManager({
+			$mother: dom,
+			spec: [
+				{
+					element: elements.name, 
+					validators:["required"]
+				},
+				{
+					element: elements.date, 
+					validators:["required", "date"]
+				},
+				{
+					element: elements.time.hour,
+					validators:["required", "number", NI.ValidationManager.makeRangeValidator(1, 12)]
+				},
+				{
+					element: elements.time.minute,
+					validators:["required", "number", NI.ValidationManager.makeRangeValidator(0, 59)]
+				},
+				{
+					element: elements.time.period,
+					validators:[
+						"required",
+						function(value) {
+							value = value.toLowerCase();
+							if (value !== "am" && value !== "pm") {
+								return { valid: false, errors:["This is not a valid period"] };
+							}
+							return { valid: true };
+						}
+					]
+				}
+			],
+			watchKeypress: true
+		});
+		
+		function validationHint(element, hint) {
+			element.bind("validationFail", function(e, d) {
+				var $field = $(this),
+				    $hint = $field.parent().find(".validation-notice");
+				if (!$hint.length) {
+					$hint = $("<div class='validation-notice'></div>");
+					$field.parent().append($hint);
+				}
+				$hint.html($.isFunction(hint) ? hint() : hint);
+				
+			}).bind("validationPass", function(e, d) {
+				$(this).parent().find(".validation-notice").remove();
+			});
+		}
+				
+		validationHint(elements.date, function() {
+			return "Oops! We need a valid date, like "+ randomFutureDateStr();
+		});
+		
+		$.each([elements.time.hour, elements.time.minute, elements.time.period], function(i, element) {
+			validationHint(element, function() {
+				return "Oops! We need a valid time, like "+ randomTimeStr();
+			});
+		});
+		
+		function randomFutureDateStr(maxDays) {
+			var future, m, d, y;
+			
+			future = new Date();
+			future.setTime(future.getTime() + (NI.math.random(1, maxDays || 100)*24*60*60*1000));
+			
+			m = future.getMonth() + 1;
+			if (m < 10) { m = "0" + m; }
+			d = future.getDate();
+			if (d < 10) { d = "0" + d; }
+			y = future.getFullYear();
+			
+			return (m +"/"+ d +"/"+ y);
+		}
+		
+		function randomTimeStr() {
+			var h, m, p;
+			
+			h =  window.Math.floor(NI.math.random(1, 13));
+			m = window.Math.floor(NI.math.random(0, 60));
+			if (m < 10) { m = "0" + m; }
+			p = (NI.math.random() < 0.5) ? "AM" : "PM";
+			
+			return h +":"+ m +" "+ p;
+		}
 		
 		function clear_form(){
 			var future;
@@ -98,15 +186,13 @@
 		};
 		
 		function validate_and_submit(){
+			var date;
 			
-			if(!elements.name.val().length){
+			if (!validationManager.validate()) {
 				return false;
 			}
 			
 			date = elements.date.val().split('/');
-			if(date.length != 3){
-				return false;
-			}
 			
 			date = new Date(
 				((date[2].length == 4) ? date[2] : '20'+date[2]),
@@ -129,7 +215,6 @@
 			});
 			
 			return true;
-			
 		};
 		
 		elements.name.bind('change keyup',function(e,d){
@@ -200,7 +285,8 @@
 			"groundhog day",
 			"the weekend",
 			"sexy time",
-			"product launch"
+			"product launch",
+			"business time"
 		]);
 		
 		(function() {
@@ -222,7 +308,7 @@
 					});
 					i++;
 				}
-				hint_timer = setTimeout(changeText,3000);
+				hint_timer = setTimeout(changeText,5000);
 			}
 
 			tc.jQ('.countdown-name-empty-overlay').click(function() {
@@ -251,13 +337,6 @@
 		})();
 		
 		
-		/* constrain minutes and hours to acceptable values  */
-		elements.time.hour.blur(function() { 
-			var v = elements.time.hour.val();
-			if (isNaN(v) || v < 1 || v > 12) {
-				elements.time.hour.val('12');
-			}
-		});
 		elements.time.minute.blur(function() { 
 			fixMinutes();
 		});
@@ -329,17 +408,13 @@
 				'width': (inputWidth - 20) + 'px'
 			}).slideDown(400);
 		});
-		elements.time.period.blur(function() {
+		elements.time.period.blur(function(e) {
 			elements.time.period_picker.slideUp(200);
-			var v = elements.time.period.val();
-			if (v!='am' && v!='AM' && v!='aM' && v!='Am' && v!='pm' && v!='PM' && v!='pM' && v!='Pm' ) {
-				elements.time.period.val('AM');
-			}
 		});
 		
-		elements.time.period_picker.find('a').click(function() {
-			var theText = tc.jQ(this).text();
-			elements.time.period.val(theText);
+		elements.time.period_picker.find('a').click(function(e) {
+			e.preventDefault();
+			elements.time.period.val($(this).text());
 		});
 		
 		

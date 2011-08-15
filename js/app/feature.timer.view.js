@@ -103,7 +103,16 @@
 				favicon.setFavicon("./img/favicon/favicon-ani.gif");
 				elements.qualifier.text('It\'s');
 				document.title = 'It\'s ' + timer.name;
-				elements.timer.hide();				
+				elements.timer.hide();
+				
+				/*(function () {
+						jQuery.favicon.animate('./img/favicon/favicon-ani-sprite-white.png', {
+							interval: 100,
+							onStop: function () {
+								jQuery.favicon('./img/favicon/favicon-still.png');
+							}
+						});
+				}).apply(window);*/		
 			}
 		}
 		
@@ -143,18 +152,6 @@
 				
 			}
 		});
-		
-		/* animate favicon -- NOT IN USE CURRENTLY */
-		function animateFavicon() {
-			var animatedFaviconTimer = setTimeout(faviconLoop, 200);
-			var faviconCounter = 0;
-			
-			function faviconLoop() {
-				var i = (faviconCounter % 8) + 1;
-				favicon.setFavicon("./img/favicon/favicon-ani-"+i+".png");
-				faviconCounter++;
-			}	
-		};
 		
 		// Vertical centering
 		function vertCenter(ele) {
