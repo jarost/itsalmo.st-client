@@ -86,14 +86,15 @@
 			window.open(elements.modal.facebook_link.attr('href'), 'Facebook', opts);
 		});
 		
+
 		/* handle modal hiding and showing */
 		elements.share_button.bind('click',function() {
 			if (elements.body.hasClass('browser-ipad')) {
 				elements.modal.overlay.show();
 				elements.modal.container.show();
 			} else {
-				elements.modal.overlay.fadeIn(600);
-				elements.modal.container.css('opacity',0.0).show().delay(400).animate({
+				elements.modal.overlay.fadeIn(300);
+				elements.modal.container.css('opacity',0.0).show().delay(200).animate({
 					opacity:1.0
 				},600,function(){
 					elements.modal.container.css('opacity','none');
@@ -105,8 +106,7 @@
 				var winHeight = tc.jQ(window).height() - tc.jQ('.footer').height();
 				var eleHeight = ele.height();
 				ele.css('top', Math.ceil((winHeight - eleHeight) * 0.4));
-			})(elements.modal.container);
-			
+			})(elements.modal.container);			
 		});
 		
 		tc.jQ('#share-done-btn, .modal-overlay').click(function(e) {
