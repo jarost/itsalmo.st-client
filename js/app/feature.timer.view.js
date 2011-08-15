@@ -63,6 +63,8 @@
 					return false;
 				}
 				
+				elements.timer.attr('title','on ' + timer.expires);
+				
 				time_exploded = {
 					milliseconds:Math.floor((diff)%1000),
 					seconds:Math.floor((diff/1000)%60),
