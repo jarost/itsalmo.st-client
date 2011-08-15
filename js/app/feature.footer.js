@@ -128,6 +128,35 @@
 			};
 		});
 		
+		
+		/* cycle through social network 'like' buttons */
+		(function(){
+			var spread_timer, spread_buttons, cyclePlay, i, j, fadeSpeed;
+			
+			spread_timer = setTimeout(cycleButtons, 4500);
+			spread_buttons = tc.jQ('.footer .spread');
+			cyclePlay = true;
+			
+			i = 0;
+			j = 1;
+			fadeSpeed = 600;
+			
+			function cycleButtons() {
+				if (cyclePlay == true) {
+					spread_buttons.find('.spread-'+j).stop(true,true).fadeOut(fadeSpeed);
+					i++;
+					j = (i % 3) + 1;
+					spread_buttons.find('.spread-'+j).fadeIn(fadeSpeed);
+				}
+				spread_timer = setTimeout(cycleButtons, 4500);
+			};
+			
+			spread_buttons.hover(
+			  function() { cyclePlay = false }, 
+			  function() { cyclePlay = true }
+			);
+		})();
+		
 	});
 	
 })(this);
