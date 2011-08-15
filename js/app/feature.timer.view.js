@@ -78,22 +78,22 @@
 				elements.milliseconds.text(time_exploded.milliseconds);
 				elements.seconds.text(time_exploded.seconds);
 				
-				if(!time_exploded.minutes){
-					elements.minutes.parent().hide();
+				if(!time_exploded.days){
+					elements.days.parent().hide();
 				} else {
-					elements.minutes.text(time_exploded.minutes);
+					elements.days.text(time_exploded.days);
 				}
 				
-				if(!time_exploded.hours){
+				if(!time_exploded.hours && !elements.days.filter(':visible').length){
 					elements.hours.parent().hide();
 				} else {
 					elements.hours.text(time_exploded.hours);
 				}
 				
-				if(!time_exploded.days){
-					elements.days.parent().hide();
+				if(!time_exploded.minutes && !elements.hours.filter(':visible').length){
+					elements.minutes.parent().hide();
 				} else {
-					elements.days.text(time_exploded.days);
+					elements.minutes.text(time_exploded.minutes);
 				}
 				
 				return true;
