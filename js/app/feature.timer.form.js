@@ -397,6 +397,8 @@
 		
 		
 		/* am/pm picker */
+		var pickerActive = false;
+		
 		elements.time.period.focus(function() {
 			var inputPos = elements.time.period.position();
 			var inputWidth = elements.time.period.outerWidth();
@@ -409,14 +411,21 @@
 			}).slideDown(400);
 		});
 		elements.time.period.blur(function(e) {
-			elements.time.period_picker.slideUp(200);
+			if (!pickerActive) {
+				elements.time.period_picker.slideUp(200);
+			}
 		});
 		
-		elements.time.period_picker.find('a').click(function(e) {
+		elements.time.period_picker.mouseover(function() {
+			pickerActive = true;
+		}).mouseout(function() {
+			pickerActive = false;
+		}).click(function(e) {
 			e.preventDefault();
-			elements.time.period.val($(this).text());
-		});
-		
+			elements.time.period.val( $(e.target).text() );
+			elements.time.period_picker.slideUp(200);
+			pickerActive = false;
+		});		
 		
 	});
 	
