@@ -104,6 +104,15 @@
 				elements.qualifier.text('It\'s');
 				document.title = 'It\'s ' + timer.name;
 				elements.timer.hide();
+				
+				/*(function () {
+						jQuery.favicon.animate('./img/favicon/favicon-ani-sprite-white.png', {
+							interval: 100,
+							onStop: function () {
+								jQuery.favicon('./img/favicon/favicon-still.png');
+							}
+						});
+				}).apply(window);*/		
 			}
 		}
 		
@@ -143,7 +152,6 @@
 				
 			}
 		});
-		
 		
 		// Vertical centering
 		function vertCenter(ele) {
