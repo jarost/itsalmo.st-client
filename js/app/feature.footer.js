@@ -61,6 +61,7 @@
 				'redirect_uri=' + window.escape(url+'?') + '&' +
 				'message=' + 'It\'s Almost ' + d.name + '&' +
 				'name=' + 'It\'s Almost ' + d.name + '&' +
+				'image=' + window.escape('http://itsalmo.st/img/favicon/bigfavicon.png') + '&' +
 				'description=' + 'A snazzy free countdown tool by Type/Code';
 			
 			elements.modal.url_link.attr('href',url);
