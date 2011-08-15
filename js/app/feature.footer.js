@@ -57,8 +57,8 @@
 			//facebook_url = 'http://www.facebook.com/sharer.php?u=' + window.escape(url) + '&t=' + window.escape('It\'s Almost ' + d.name);
 			facebook_url =   'https://www.facebook.com/dialog/feed?' +
 			 	'app_id=' + '198989746829532' + '&' +
-				'link=' + window.escape(url) + '&' +
-				'redirect_uri=' + window.escape(url) + '&' +
+				'link=' + window.escape(url+'?') + '&' +
+				'redirect_uri=' + window.escape(url+'?') + '&' +
 				'message=' + 'It\'s Almost ' + d.name + '&' +
 				'name=' + 'It\'s Almost ' + d.name + '&' +
 				'description=' + 'A snazzy free countdown tool by Type/Code';
