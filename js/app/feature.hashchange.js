@@ -11,13 +11,17 @@
 		
 		$w = $(window);
 		$w.hashchange(function(){
-			app.events.one('timer.manager.noTimerLoaded',function(e,d){
-				window.location.hash = '#';
-			});
-			
-			app.events.trigger('hashchange.hashChanged',{
-				hash:window.location.hash.substring(1,window.location.hash.length).toLowerCase()
-			});
+			if(window.location.hash.indexOf('?') > -1){
+				//strip out the get vars added by facebook redirect
+				window.location.hash = window.location.hash.split('?')[0];
+			} else {
+				app.events.one('timer.manager.noTimerLoaded',function(e,d){
+					window.location.hash = '#';
+				});
+				app.events.trigger('hashchange.hashChanged',{
+					hash:window.location.hash.substring(1,window.location.hash.length).toLowerCase()
+				});
+			}
 		});
 		
 		app.events.bind('timer.manager.timerCreated',function(e,d){

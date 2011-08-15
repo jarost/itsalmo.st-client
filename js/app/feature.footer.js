@@ -54,7 +54,15 @@
 			
 			url = 'http://itsalmo.st/#' + window.escape(d.id);
 			twitter_url = 'http://twitter.com/share?url=' + window.escape(url) + '&text=' + window.escape('It\'s Almost ' + d.name);
-			facebook_url = 'http://www.facebook.com/sharer.php?u=' + window.escape(url) + '&t=' + window.escape('It\'s Almost ' + d.name);
+			//facebook_url = 'http://www.facebook.com/sharer.php?u=' + window.escape(url) + '&t=' + window.escape('It\'s Almost ' + d.name);
+			facebook_url =   'https://www.facebook.com/dialog/feed?' +
+			 	'app_id=' + '198989746829532' + '&' +
+				'link=' + window.escape(url+'?') + '&' +
+				'redirect_uri=' + window.escape(url+'?') + '&' +
+				'message=' + 'It\'s Almost ' + d.name + '&' +
+				'name=' + 'It\'s Almost ' + d.name + '&' +
+				'image=' + window.escape('http://itsalmo.st/img/favicon/bigfavicon.png') + '&' +
+				'description=' + 'A snazzy free countdown tool by Type/Code';
 			
 			elements.modal.url_link.attr('href',url);
 			elements.modal.url_text.text(url);
@@ -78,13 +86,13 @@
 			window.open(elements.modal.twitter_link.attr('href'), 'Twitter', opts);
 		});
 		
-		elements.modal.facebook_link.bind('click',function(e,d){
-			e.preventDefault();
-			var opts		= 'status=1' +
-									',width='  + 1000  +
-									',height=' + 600;
-			window.open(elements.modal.facebook_link.attr('href'), 'Facebook', opts);
-		});
+		//elements.modal.facebook_link.bind('click',function(e,d){
+		//	e.preventDefault();
+		//	var opts		= 'status=1' +
+		//							',width='  + 1000  +
+		//							',height=' + 600;
+		//	window.open(elements.modal.facebook_link.attr('href'), 'Facebook', opts);
+		//});
 		
 
 		/* handle modal hiding and showing */
