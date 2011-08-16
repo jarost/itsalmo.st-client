@@ -242,10 +242,14 @@
 		});
 		
 		app.events.bind('hashchange.hashChanged',function(e,d){
-			if(!d.hash.length || d.hash == 'local_timers'){
+			console.log(d.hash);
+			if(d.hash == 'local_timers'){
+				return;
+			}
+			if(!d.hash.length){
 				clear_form();
 				document.title = 'It\'s Almost';
-				dom.stop().css('opacity',0.0).show().animate({
+				dom.stop(true, true).show().animate({
 					opacity:1.0
 				},500,function(){
 					dom.css('opacity','none');
