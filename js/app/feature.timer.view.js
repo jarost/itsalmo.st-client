@@ -167,7 +167,7 @@
 			vertCenter(tc.jQ('.modal-container'));
 		});
 	
-		vertCenter(tc.jQ('.pane'));
+		vertCenter(tc.jQ('.start-pane, .share-pane, .timer-pane'));
 		
 	});
 	
