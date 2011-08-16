@@ -17,12 +17,12 @@
 			social:dom.find('.social'),
 			share_button:dom.find('.share-btn'),
 			modal:{
-				overlay:$('.modal-overlay'),
-				container:$('.modal-container'),
-				url_link:$('.modal-container').find('.url a'),
-				url_text:$('.modal-container').find('.url a .text'),
-				twitter_link:$('.modal-container').find('.twitter a'),
-				facebook_link:$('.modal-container').find('.fb a')
+				overlay:$('.share-pane .modal-overlay'),
+				container:$('.share-pane .modal-container'),
+				url_link:$('.share-pane .modal-container').find('.url a'),
+				url_text:$('.share-pane .modal-container').find('.url a .text'),
+				twitter_link:$('.share-pane .modal-container').find('.twitter a'),
+				facebook_link:$('.share-pane .modal-container').find('.fb a')
 			}
 		};
 		
@@ -117,7 +117,7 @@
 			})(elements.modal.container);			
 		});
 		
-		tc.jQ('#share-done-btn, .modal-overlay').click(function(e) {
+		tc.jQ('#share-done-btn, .share-pane .modal-overlay').click(function(e) {
 			e.preventDefault();
 			if (elements.body.hasClass('browser-ipad')) {
 				elements.modal.overlay.hide();

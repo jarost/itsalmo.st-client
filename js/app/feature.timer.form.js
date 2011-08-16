@@ -346,7 +346,7 @@
 			if (v=='0'||v=='1'||v=='2'||v=='3'||v=='4'||v=='5'||v=='6'||v=='7'||v=='8'||v=='9') {
 				elements.time.minute.val('0'+v);
 			} else if (isNaN(v) || v < 0 || v > 59) {
-				elements.time.minute.val('00');
+				//elements.time.minute.val('00');
 			}
 		}
 		
