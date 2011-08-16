@@ -170,6 +170,21 @@
 	
 		vertCenter(tc.jQ('.pane'));
 		
+		
+		// Currently running modal stuff
+		var currentModalOverlay = tc.jQ('.current-pane .modal-overlay');
+		var currentModal = tc.jQ('.current-pane .modal');
+		tc.jQ('#running-close-btn, .current-pane .modal-overlay').click(function(e) {
+			e.preventDefault();
+			if (tc.jQ('body').hasClass('browser-ipad')) {
+				currentModalOverlay.hide();
+				currentModal.hide();
+			} else {
+				currentModal.fadeOut(250);
+				currentModalOverlay.delay(150).fadeOut(400);
+			};
+		});
+		
 	});
 	
 })(this);
