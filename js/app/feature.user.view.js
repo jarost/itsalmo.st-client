@@ -2,16 +2,16 @@
 	
 	var page = window.page,
 			log = new NI.Logging({
-				moduleName:'Feature(Browser Detection)',
+				moduleName:'Feature(User.View)',
 				enabled:true
 			});
 
 	page.features.push(function(app){
-			
-		if (navigator.userAgent.match(/iPad/i) != null) {
-			$('body').addClass('browser-ipad');
-		}
-			
+		
+		app.events.bind('user.localTimersFetched',function(e,d){
+			console.log(d.timers);
+		});
+		
 	});
 	
 })(this);
