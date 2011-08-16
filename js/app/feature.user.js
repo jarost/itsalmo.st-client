@@ -16,15 +16,19 @@
 		
 		app.events.bind('timer.manager.timerCreated',function(e,d){
 			timer_cookies.setCookie(d.id, d.name, d.expires);
-			app.events.trigger('user.localTimersFetched',{
-				timers:timer_cookies.getAllCookies()
-			});
 		});
 		
-		app.events.bind('app.featuresInitialized',function(e,d){
-			app.events.trigger('user.localTimersFetched',{
-				timers:timer_cookies.getAllCookies()
-			});
+		app.events.bind('hashchange.hashChanged',function(e,d){
+			if(!d.hash.length){
+				app.events.trigger('user.localTimersFetched',{
+					timers:timer_cookies.getAllCookies()
+				});
+			} else if(d.hash.length && d.hash == 'local_timers'){
+				e.stopImmediatePropagation();
+				app.events.trigger('user.localTimersFetched',{
+					timers:timer_cookies.getAllCookies()
+				});
+			}
 		});
 		
 	});
