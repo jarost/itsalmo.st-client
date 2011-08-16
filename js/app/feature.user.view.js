@@ -15,18 +15,11 @@
 		
 		app.events.bind('user.localTimersFetched',function(e,d){
 			var timers_list, overlay_options;
-			
-			if(!d.timers.length){
-				overlay.close();
-				window.location.hash = '#';
-				return;
-			}
-			
 			timers_list = (function(timers){
 				var out, i;
 				out = '';
 				for(i in timers){
-					out = out + "<li><a href='#"+timers[i].key+"'>"+timers[i].value+"</a></li>"
+					out = out + "<li><a href='#"+timers[i].key+"'>"+timers[i].value+"&nbsp;<span>(#"+timers[i].key+")</span></a></li>"
 				}
 				return out;
 			})(d.timers);

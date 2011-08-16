@@ -15,6 +15,8 @@
 		elements = {
 			body:$('body'),
 			social:dom.find('.social'),
+			timer_links:dom.find('.timer-link'),
+			my_timers:dom.find('.my-timers-link'),
 			share_button:dom.find('.share-btn'),
 			modal:{
 				overlay:$('.share-pane .modal-overlay'),
@@ -28,18 +30,26 @@
 		
 		app.events.bind('hashchange.hashChanged',function(e,d){
 			if(!d.hash.length){
-				elements.social.stop().animate({
+				elements.timer_links.stop().animate({
 					'opacity':0.0
 				},500,function(){
 					$(this).css('visibility','hidden');
 				});
 			} else {
-				elements.social.stop().css('visibility','visible').animate({
+				elements.timer_links.stop().css('visibility','visible').animate({
 					'opacity':1.0
 				},500,function(){
 					$(this).css('opacity','none');
 				});
 			}
+		});
+		
+		app.events.bind('user.localTimersFetched user.localTimersLoaded form.timerGenerated',function(e,d){
+			elements.my_timers.stop().css('visibility','visible').animate({
+				'opacity':1.0
+			},500,function(){
+				$(this).css('opacity','none');
+			});
 		});
 		
 		app.events.bind('timer.manager.timerLoaded',function(e,d){
@@ -86,15 +96,6 @@
 			window.open(elements.modal.twitter_link.attr('href'), 'Twitter', opts);
 		});
 		
-		//elements.modal.facebook_link.bind('click',function(e,d){
-		//	e.preventDefault();
-		//	var opts		= 'status=1' +
-		//							',width='  + 1000  +
-		//							',height=' + 600;
-		//	window.open(elements.modal.facebook_link.attr('href'), 'Facebook', opts);
-		//});
-		
-
 		/* handle modal hiding and showing */
 		elements.share_button.bind('click',function() {
 			if (elements.body.hasClass('browser-ipad')) {
