@@ -128,76 +128,79 @@
 			};
 		});
 		
+		var socialRotator = new NI.SocialRotator({
+			element:tc.jQ('.footer .spread')
+		});
 		
-		/* cycle through social network 'like' buttons */
-		(function(){
-			var spread_timer, spread_area, spread_buttons, spread_array, cyclePlay, drawerOpen, i, fadeSpeed, vertOffset, bottomOffset;
-			
-			spread_timer = setTimeout(cycleButtons, 4500);
-			spread_area = tc.jQ('.footer .spread');
-			spread_buttons = spread_area.children('.spread-button');
-			spread_array =[spread_buttons.eq(0), spread_buttons.eq(1), spread_buttons.eq(2)];
-			var current_button = 0;
-			
-			cyclePlay = true;
-			drawerOpen = false;
-			fadeSpeed = 600;
-			vertOffset = 35;
-			bottomOffset = 20;
-			
-			i = 0;
-			
-			function cycleButtons() {
-				if (cyclePlay == true) {
-					//spread_buttons.stop(true,true).fadeOut(fadeSpeed);
-					spread_array[current_button].stop(true,true).fadeOut(fadeSpeed);
-					i++;
-					current_button = (i % 3);
-					//spread_array[(current_button+1)%3].hide();
-					//spread_array[(current_button+2)%3].hide();
-					spread_array[current_button].css('bottom', bottomOffset).fadeIn(fadeSpeed);
-				}
-				spread_timer = setTimeout(cycleButtons, 4500);
-			};
-			
-			spread_area.hover(
-				function () {
-					cyclePlay = false;
-				},
-				function () {	
-					cyclePlay = true;
-				}
-			);
-					
-			/*spread_area.hover(
-				function () {
-					if (drawerOpen==false) {
-						cyclePlay = false;
-						spread_area.stop(true,true).animate({
-							top:'-'+(vertOffset*2)+'px'
-						},fadeSpeed*.5,function(){
-							spread_array[current_button].show();
-							spread_array[(current_button+1)%3].css('bottom', vertOffset+bottomOffset+'px').fadeIn(fadeSpeed/3);
-							spread_array[(current_button+2)%3].css('bottom', (vertOffset*2)+bottomOffset+'px').fadeIn(fadeSpeed/2);
-							drawerOpen = true;
-						});
-					}
-				},
-				function () {	
-					if (drawerOpen==true) {
-						spread_array[(current_button+1)%3].hide();
-						spread_array[(current_button+2)%3].hide();
-						spread_area.animate({
-							top:'1px'
-						},fadeSpeed*.5,function(){
-							drawerOpen = false;
-						});
-						cyclePlay = true;
-					}
-				}
-			);*/
-			 
-		})();
+//		/* cycle through social network 'like' buttons */
+//		(function(){
+//			var spread_timer, spread_area, spread_buttons, spread_array, cyclePlay, drawerOpen, i, fadeSpeed, vertOffset, bottomOffset;
+//			
+//			spread_timer = setTimeout(cycleButtons, 4500);
+//			spread_area = tc.jQ('.footer .spread');
+//			spread_buttons = spread_area.children('.spread-button');
+//			spread_array =[spread_buttons.eq(0), spread_buttons.eq(1), spread_buttons.eq(2)];
+//			var current_button = 0;
+//			
+//			cyclePlay = true;
+//			drawerOpen = false;
+//			fadeSpeed = 600;
+//			vertOffset = 35;
+//			bottomOffset = 20;
+//			
+//			i = 0;
+//			
+//			function cycleButtons() {
+//				if (cyclePlay == true) {
+//					//spread_buttons.stop(true,true).fadeOut(fadeSpeed);
+//					spread_array[current_button].stop(true,true).fadeOut(fadeSpeed);
+//					i++;
+//					current_button = (i % 3);
+//					//spread_array[(current_button+1)%3].hide();
+//					//spread_array[(current_button+2)%3].hide();
+//					spread_array[current_button].css('bottom', bottomOffset).fadeIn(fadeSpeed);
+//				}
+//				spread_timer = setTimeout(cycleButtons, 4500);
+//			};
+//			
+//			spread_area.hover(
+//				function () {
+//					cyclePlay = false;
+//				},
+//				function () {	
+//					cyclePlay = true;
+//				}
+//			);
+//					
+//			/*spread_area.hover(
+//				function () {
+//					if (drawerOpen==false) {
+//						cyclePlay = false;
+//						spread_area.stop(true,true).animate({
+//							top:'-'+(vertOffset*2)+'px'
+//						},fadeSpeed*.5,function(){
+//							spread_array[current_button].show();
+//							spread_array[(current_button+1)%3].css('bottom', vertOffset+bottomOffset+'px').fadeIn(fadeSpeed/3);
+//							spread_array[(current_button+2)%3].css('bottom', (vertOffset*2)+bottomOffset+'px').fadeIn(fadeSpeed/2);
+//							drawerOpen = true;
+//						});
+//					}
+//				},
+//				function () {	
+//					if (drawerOpen==true) {
+//						spread_array[(current_button+1)%3].hide();
+//						spread_array[(current_button+2)%3].hide();
+//						spread_area.animate({
+//							top:'1px'
+//						},fadeSpeed*.5,function(){
+//							drawerOpen = false;
+//						});
+//						cyclePlay = true;
+//					}
+//				}
+//			);*/
+//			 
+//		})();
 		
 	});
 	

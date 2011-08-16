@@ -61,7 +61,7 @@
 					]
 				}
 			],
-			watchKeypress: true
+			watchEvents: ['keyup']
 		});
 		
 		function validationHint(element, hint) {
@@ -354,10 +354,17 @@
 		var hoursChange = 0;
 		elements.time.hour.bind("mousewheel", function(event, delta) {
 			hoursChange += (delta/2);
+			
+			if(isNaN(parseInt(this.value))){
+				this.value = '';
+				return false;
+			}
+			
 			if (hoursChange > 1) {
 				this.value = parseInt(this.value) + 1;
 				hoursChange = 0;
 			} else if (hoursChange < -1) {
+				
 				if (parseInt(this.value) > 0) {
 					this.value = parseInt(this.value) - 1;
 				}
@@ -369,6 +376,7 @@
 			} else if (this.value < 1) {
 				this.value = 1;
 			}
+			$(this).trigger('keyup');
 			return false;
 		});
 			
@@ -379,6 +387,12 @@
 				this.value = valueSplit[1]
 			}
 			minutesChange += (delta/2);
+			
+			if(isNaN(parseInt(this.value))){
+				this.value = '';
+				return false;
+			}
+			
 			if (minutesChange > 1) {
 				this.value = parseInt(this.value) + 1;
 				minutesChange = 0;
@@ -391,6 +405,7 @@
 			if (this.value > 59) {
 				this.value = 59;
 			}
+			$(this).trigger('keyup');
 			fixMinutes();
 			return false;
 		});
