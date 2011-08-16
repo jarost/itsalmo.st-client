@@ -19,7 +19,7 @@
 				var out, i;
 				out = '';
 				for(i in timers){
-					out = out + "<li><a href='#"+timers[i].key+"'>"+timers[i].value+"&nbsp;<span>(#"+timers[i].key+")</span></a></li>"
+					out = out + "<li><a class='timer-link' href='#"+timers[i].key+"'>"+timers[i].value+"&nbsp;<span>(#"+timers[i].key+")</span></a></li>"
 				}
 				return out;
 			})(d.timers);
@@ -34,18 +34,20 @@
 					</div><!-- end .modal -->\
 				")
 			};
-			overlay_options.bd.find('.custom-btn-close').bind('click',function(e,d){
+			overlay_options.bd.find('.custom-btn-close, .timer-link').bind('click',function(e,d){
+				e.stopImmediatePropagation();
+				e.stopPropagation();
 				overlay.close();
 			});
 			overlay.open(overlay_options);
-			window.location.hash = '#';
+		});
+		
+		app.events.bind('footer.myTimersLinkClicked',function(e,d){
+			
 		});
 		
 		app.events.bind('hashchange.hashChanged',function(e,d){
-			if(d.hash.length && d.hash != 'local_timers'){
-				overlay.close();
-				return;
-			}
+			overlay.close();
 		});
 		
 	});

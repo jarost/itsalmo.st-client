@@ -46,11 +46,11 @@
 			},
 			start:function(){
 				favicon.setFavicon("./img/favicon/favicon-still.png");
-				elements.qualifier.text('It\'s almost');
+				//elements.qualifier.text('It\'s almost');
 				elements.timer.show();
-				elements.minutes.parent().show();
-				elements.hours.parent().show();
-				elements.days.parent().show();
+				//elements.minutes.parent().show();
+				//elements.hours.parent().show();
+				//elements.days.parent().show();
 			},
 			display:function(){
 				var diff, time_exploded;
@@ -83,19 +83,19 @@
 				if(!time_exploded.days){
 					elements.days.parent().hide();
 				} else {
-					elements.days.text(time_exploded.days);
+					elements.days.text(time_exploded.days).parent().show();
 				}
 				
 				if(!time_exploded.hours && !elements.days.filter(':visible').length){
 					elements.hours.parent().hide();
 				} else {
-					elements.hours.text(time_exploded.hours);
+					elements.hours.text(time_exploded.hours).parent().show();
 				}
 				
 				if(!time_exploded.minutes && !elements.hours.filter(':visible').length){
 					elements.minutes.parent().hide();
 				} else {
-					elements.minutes.text(time_exploded.minutes);
+					elements.minutes.text(time_exploded.minutes).parent().show();
 				}
 				
 				return true;
@@ -146,7 +146,7 @@
 			} else {
 				render.start();
 				vertCenter(tc.jQ('.timer-pane'));
-				dom.stop().css('opacity',0.0).show().animate({
+				dom.stop(true,true).show().animate({
 					opacity:1.0
 				},500,function(){
 					dom.css('opacity','none');

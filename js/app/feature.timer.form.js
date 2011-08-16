@@ -242,10 +242,6 @@
 		});
 		
 		app.events.bind('hashchange.hashChanged',function(e,d){
-			console.log(d.hash);
-			if(d.hash == 'local_timers'){
-				return;
-			}
 			if(!d.hash.length){
 				clear_form();
 				document.title = 'It\'s Almost';

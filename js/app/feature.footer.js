@@ -28,6 +28,11 @@
 			}
 		};
 		
+		elements.my_timers.bind('click',function(e,d){
+			e.preventDefault();
+			app.events.trigger('footer.myTimersLinkClicked');
+		});
+		
 		app.events.bind('hashchange.hashChanged',function(e,d){
 			if(!d.hash.length){
 				elements.timer_links.stop().animate({
