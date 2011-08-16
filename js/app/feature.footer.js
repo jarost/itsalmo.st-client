@@ -153,8 +153,8 @@
 					spread_array[current_button].stop(true,true).fadeOut(fadeSpeed);
 					i++;
 					current_button = (i % 3);
-					spread_array[(current_button+1)%3].hide();
-					spread_array[(current_button+2)%3].hide();
+					//spread_array[(current_button+1)%3].hide();
+					//spread_array[(current_button+2)%3].hide();
 					spread_array[current_button].css('bottom', bottomOffset).fadeIn(fadeSpeed);
 				}
 				spread_timer = setTimeout(cycleButtons, 4500);
