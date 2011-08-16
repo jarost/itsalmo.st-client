@@ -131,30 +131,54 @@
 		
 		/* cycle through social network 'like' buttons */
 		(function(){
-			var spread_timer, spread_buttons, cyclePlay, i, j, fadeSpeed;
+			var spread_timer, spread_area, spread_buttons, spread_array, cyclePlay, i, j, fadeSpeed, vertOffset, bottomOffset;
 			
 			spread_timer = setTimeout(cycleButtons, 4500);
-			spread_buttons = tc.jQ('.footer .spread');
+			spread_area = tc.jQ('.footer .spread');
+			spread_buttons = spread_area.children('.spread-button');
+			spread_array =[spread_buttons.eq(0), spread_buttons.eq(1), spread_buttons.eq(2)];
+			var current_button = 0;
+			
 			cyclePlay = true;
+			fadeSpeed = 600;
+			vertOffset = 35;
+			bottomOffset = 20;
 			
 			i = 0;
-			j = 1;
-			fadeSpeed = 600;
 			
 			function cycleButtons() {
 				if (cyclePlay == true) {
-					spread_buttons.find('.spread-'+j).stop(true,true).fadeOut(fadeSpeed);
+					spread_buttons.stop(true,true).fadeOut(fadeSpeed);
 					i++;
-					j = (i % 3) + 1;
-					spread_buttons.find('.spread-'+j).fadeIn(fadeSpeed);
+					current_button = (i % 3);
+					spread_area.find('.spread-'+current_button).css('bottom', bottomOffset).fadeIn(fadeSpeed);
 				}
 				spread_timer = setTimeout(cycleButtons, 4500);
 			};
-			
-			spread_buttons.hover(
-			  function() { cyclePlay = false }, 
-			  function() { cyclePlay = true }
+					
+			spread_area.hover(
+				function () {
+					cyclePlay = false;
+					spread_area.stop(true,true).animate({
+						background:'#222222',
+						top:'-'+(vertOffset*2)+'px'
+					},fadeSpeed*.65,function(){
+						spread_array[current_button].fadeIn(fadeSpeed);
+						spread_array[(current_button+1)%3].css('bottom', vertOffset+bottomOffset+'px').fadeIn(fadeSpeed*.75);
+						spread_array[(current_button+2)%3].css('bottom', (vertOffset*2)+bottomOffset+'px').fadeIn(fadeSpeed*.75);
+					});
+				},
+				function () {	
+					spread_array[(current_button+1)%3].stop(true,true).fadeOut(fadeSpeed/3);
+					spread_array[(current_button+2)%3].fadeOut(fadeSpeed/3);
+					spread_area.animate({
+						top:'1px'
+					},fadeSpeed*.75,function(){
+						cyclePlay = true;
+					});
+				}
 			);
+			
 		})();
 		
 	});

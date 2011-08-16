@@ -79,7 +79,7 @@ a:visited{
 .start-pane p.url .membrane { display: block; margin-left: 312px; width: 405px; overflow: hidden; position: relative;}
 .start-pane p img { margin-left:5px; }
 .start-pane p.url .gradient { right: 0; top: 0; bottom: 0; width: 15px; display: block; position: absolute; z-index: 1; }
-.start-pane #timeperiod-picker { position: absolute; font-size: 32px; line-height: 1; padding: 12px 0 10px; text-align: center;
+.start-pane #timeperiod-picker { position: absolute; font-size: 32px; line-height: 1; padding: 12px 0 10px; text-align: center; z-index: 10;
 	-webkit-box-shadow: 1px 1px 15px rgba(0,0,0,0.25); -moz-box-shadow: 1px 1px 15px rgba(0,0,0,0.25); box-shadow: 1px 1px 15px rgba(0,0,0,0.25); 
 	-moz-border-radius-topleft: 0px; -moz-border-radius-topright: 0px; -moz-border-radius-bottomright: 3px; -moz-border-radius-bottomleft: 3px; 
 	-webkit-border-radius: 0px 0px 3px 3px; border-radius: 0px 0px 3px 3px;
@@ -169,10 +169,30 @@ a:visited{
 	background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
 	background: linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */ 
 	}
-	
-.footer .spread {width:100px; height:30px; position:absolute; left:30px; top:20px; opacity:0.65; }
-.footer .spread > div { position: absolute; }
-.footer .spread > div.facebook { height: 20px; overflow: hidden; }
+
+.footer .spread {width:125px; /*height:25px;*/ position:absolute; left:15px; bottom:0px; top: 1px; z-index: 60; background-color:#f0efee;
+	border-top:1px solid #f0efee; z-index: 51; border-left:1px solid #f0efee; z-index: 51; border-right:1px solid #f0efee;
+	-moz-border-radius-topleft: 20px; -moz-border-radius-topright: 20px; -moz-border-radius-bottomright: 0px; -moz-border-radius-bottomleft: 0px;
+	-webkit-border-radius: 20px 20px 0px 0px;
+	border-radius: 20px 20px 0px 0px;}
+.footer .spread:hover { 
+	border-top:1px solid #eaeaea; z-index: 51; border-left:1px solid #eaeaea; z-index: 51; border-right:1px solid #eaeaea; z-index: 51;
+	-webkit-transition: background,-webkit-box-shadow 500ms ease; -webkit-box-shadow: inset 1px 1px 15px rgba(50,49,49,0.1);
+	-moz-transition: background,-moz-box-shadow 500ms ease; -moz-box-shadow: inset 1px 1px 15px rgba(50,49,49,0.1);
+	-o-transition: background,-o-box-shadow 500ms ease; 
+	transition: background,box-shadow 3s ease; box-shadow: inset 1px 1px 15px rgba(50,49,49,0.1);
+	background: rgb(229,229,229); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(229,229,229,1) 0%, rgba(240,239,238,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(229,229,229,1)), color-stop(100%,rgba(240,239,238,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(229,229,229,1) 0%,rgba(240,239,238,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(229,229,229,1) 0%,rgba(240,239,238,1) 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(229,229,229,1) 0%,rgba(240,239,238,1) 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#f0efee',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(229,229,229,1) 0%,rgba(240,239,238,1) 100%); /* W3C */
+	}
+.footer .spread .spread-button { position: absolute; left: 15px; bottom: 20px; height: 20px; opacity:0.65;}
+.footer .spread:hover .spread-button { opacity:0.85; }
+.footer .spread > div.facebook { overflow: hidden; }
 
 a.btn { padding: 5px 25px 15px 25px; -webkit-border-radius:3px; -moz-border-radius:3px; border-radius:3px; font-size:36px; font-weight:600; color:#FFF; text-decoration:none; display:inline-block; text-shadow:-1px -1px 1px rgba(94,91,91,0.45); border:1px solid #a0a09f; -webkit-box-shadow:1px 1px 3px rgba(0,0,0,0.35); -moz-box-shadow:1px 1px 3px rgba(0,0,0,0.35); box-shadow:1px 1px 3px rgba(0,0,0,0.35); cursor:pointer; position:relative;
 	-webkit-transition: all 300ms ease; -moz-transition: all 300ms ease; -o-transition: all 300ms ease; transition: all 300ms ease;

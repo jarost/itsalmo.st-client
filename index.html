@@ -4,6 +4,8 @@
 			<title>It's Almost</title>
 			
 			<meta name="description" content="A snazzy free countdown tool by Type/Code">
+			<meta name="apple-mobile-web-app-capable" content="yes" />
+			<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 			<!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> -->
 			
 			<link rel="stylesheet" href="./css/lib/typecode-css/reset.css" type="text/css" media="screen" charset="utf-8" />
@@ -26,6 +28,15 @@
 			
 			<link rel="icon" href="./img/favicon/favicon-still.png" /> 
 			<link rel="shortcut icon" href="./img/favicon/favicon-still.png" />
+			
+			<link rel="image_src" href="./img/favicon/bigfavicon.png"/>
+			<link rel="apple-touch-icon" href="./img/favicon/apple-touch-icon-57x57.png"/>
+			<link rel="apple-touch-icon" sizes="72x72" href="./img/favicon/apple-touch-icon-72x72.png"/>
+			<link rel="apple-touch-icon" sizes="114x114" href="./img/favicon/apple-touch-icon-114x114.png"/>
+			<link rel="apple-touch-startup-image" href="./img/favicon/splash-iphone-lowres.png" media="screen and (min-device-width: 200px) and (max-device-width: 640px)" />
+			<link rel="apple-touch-startup-image" href="./img/favicon/splash-ipad-portrait.png" media="screen and (min-device-width: 768px)" />
+			<!--<link rel="apple-touch-startup-image" href="./img/favicon/splash-ipad-portrait.png" media="screen and (min-device-width: 768px) and (orientation:portrait)" />
+			<link rel="apple-touch-startup-image" href="./img/favicon/splash-ipad-landscape.png"  media="screen and (min-device-width: 768px) and (orientation:landscape)" />-->
 			
 			<meta property="og:site_name" content="ItsAlmo.st"/>
 			<!-- <meta property="og:title" content="ItsAlmo.st"/> -->
@@ -136,13 +147,13 @@
 				<span class="gradient"></span>
 				<div class='tier'>
 					<div class='spread'>
-						<div class="spread-1 twitter">
+						<div class="spread-0 twitter spread-button">
 							<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://itsalmo.st" data-via="typecode" data-text="Countdown to awesome:" data-related="anywhere:The Javascript API">Tweet</a>
 						</div>
-						<div class="spread-2 facebook" style="display:none">
+						<div class="spread-1 facebook spread-button" style="display:none">
 							<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=250833004938654&amp;xfbml=1"></script><fb:like href="http://itsalmo.st" send="false" layout="button_count" width="450" show_faces="false" action="like" font=""></fb:like>
 						</div>
-						<div class="spread-3 googleplus" style="display:none">
+						<div class="spread-2 googleplus spread-button" style="display:none">
 							<g:plusone size="medium" href="http://itsalmo.st"></g:plusone>
 							<script type="text/javascript">
 							  (function() {
