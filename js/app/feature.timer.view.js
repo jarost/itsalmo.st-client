@@ -24,6 +24,7 @@
 		dom = $('.pane.timer-pane');
 		
 		elements = {
+			body:tc.jQ('body'),
 			qualifier:dom.find('.description span.qualifier'),
 			qualified:dom.find('.description span.qualified'),
 			timer:dom.find('.timer'),
@@ -168,6 +169,18 @@
 		});
 	
 		vertCenter(tc.jQ('.start-pane, .share-pane, .timer-pane'));
+		
+		
+		// iOS 'add to homescreen' tooltips
+		if ((elements.body.hasClass('browser-ipad') || elements.body.hasClass('browser-iphone')) && !(elements.body.hasClass('ios-webapp'))) {
+			elements.body.find('.footer').after('<div class="ios-tooltip" style="opacity:0"></div>');
+			elements.body.find('.ios-tooltip').delay(1000).css({'top':'-=100'}).animate({
+			    opacity: 0.75,
+			    top: '+=100px'
+			  }, 500, function() {
+			    // Animation complete.
+			});
+		}
 		
 	});
 	

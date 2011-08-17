@@ -134,10 +134,10 @@ a:visited{
 .modal ul a:hover { text-decoration: none; text-shadow: 1px 1px 0px #E5E1E1; filter: dropshadow(color=#E5E1E1, offx=1, offy=1); }
 .modal .gradient { position: absolute; top: 5px; bottom: 5px; right: 50px; width: 20px; }
 
-.modal.your-countdowns h2 { font-weight: 600px; margin-bottom: 40px; font-size: 150%; }
+.modal.your-countdowns h2 { font-weight: 600px; margin-bottom: 40px; font-size: 200%; }
 .modal.your-countdowns li { text-align: center; font-size: 150%; margin-bottom: 20px; word-wrap: break-work;}
 .overlay > .tier > .tier { vertical-align: middle; }
-.overlay > .tier > .tier > .pane { width: 550px; margin: 0 auto 0; }
+.overlay > .tier > .tier > .pane { width: 550px; margin: 0 auto 0; top: -36px;}
 .overlay .pane { -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
 
 .share-pane { white-space: nowrap; }
@@ -263,12 +263,23 @@ a.btn.disabled, a.btn.disabled:hover, a.btn.disabled:active {
 
 .spacer { display: inline-block; width: 2px; }
 
-body.broswer-ipad .tier.countdown-name input[type="text"] { background-image: -webkit-gradient(
+/*body.browser-ipad .tier.countdown-name input[type="text"] { background-image: -webkit-gradient(
 	radial, 50% 50%, 190, 50% 50%, 500, from(rgba(0,0,0,0)), to(rgba(0,0,0,.5))
 );}
-body.broswer-ipad .tier.countdown-details input[type="text"] { background-image: -webkit-gradient(
+body.browser-ipad .tier.countdown-details input[type="text"] { background-image: -webkit-gradient(
 	radial, 50% 50%, 125, 50% 50%, 250, from(rgba(0,0,0,0)), to(rgba(0,0,0,.5))
-);}
+);}*/
+
+
+/* iOS tooltips */
+.ios-tooltip {
+	position:absolute; background: url(/img/ios-tooltip-ipad.png) top left no-repeat transparent; width: 250px; height: 123px; z-index: 150;
+	-webkit-transition: all 300ms ease; -moz-transition: all 300ms ease; -o-transition: all 300ms ease; transition: all 300ms ease;
+	}
+body.ios-webapp .ios-tooltip { display: none; }
+body.browser-ipad.portrait .ios-tooltip { top: -8px; left: 140px; }
+body.browser-ipad.landscape .ios-tooltip { top: -8px; left: 78px; }
+
 
 .content .browser-invalid { position:absolute; top:-40px; width:100%; background-color:#fff0bd; border-bottom:1px solid #f7e28c; height:40px; z-index:1000;}
 .content .browser-invalid .browser-message p { font-size: 15px; font-weight:300; text-align:center; margin-top:8px; text-shadow:1px 1px 1px rgba(255,255,255,0.8);}
