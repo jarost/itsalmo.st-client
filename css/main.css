@@ -134,10 +134,11 @@ a:visited{
 .modal ul a:hover { text-decoration: none; text-shadow: 1px 1px 0px #E5E1E1; filter: dropshadow(color=#E5E1E1, offx=1, offy=1); }
 .modal .gradient { position: absolute; top: 5px; bottom: 5px; right: 50px; width: 20px; }
 
+.modal.your-countdowns { top: -36px; }
 .modal.your-countdowns h2 { font-weight: 600px; margin-bottom: 40px; font-size: 200%; }
 .modal.your-countdowns li { text-align: center; font-size: 150%; margin-bottom: 20px; word-wrap: break-work;}
 .overlay > .tier > .tier { vertical-align: middle; }
-.overlay > .tier > .tier > .pane { width: 550px; margin: 0 auto 0; top: -36px;}
+.overlay > .tier > .tier > .pane { width: 550px; margin: 0 auto 0; }
 .overlay .pane { -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
 
 .share-pane { white-space: nowrap; }
@@ -154,16 +155,16 @@ a:visited{
 .share-pane ul li.twitter span.icon { background-image: url(../img/icon-twitter.png); }
 .share-pane ul li.fb span.icon { background-image: url(../img/icon-fb.png); }
 
-.footer { position:fixed; bottom:0; width:100%; text-align:left; background-color:#f0efee; border-top:1px solid #eaeaea; z-index: 51;}
+.footer { position:fixed; bottom:0; width:100%; /*min-width: 750px;*/ text-align:left; background-color:#f0efee; border-top:1px solid #eaeaea; z-index: 51;}
 .footer .tier { padding:17px 200px 22px; }
 
-.footer .social { text-align:center;width:600px; margin:0px auto; font-size:16px; padding-top:0px; }
+.footer .social { text-align:center;/*width:400px;*/ min-width: 150px; margin:0px auto; font-size:16px; padding-top:0px; position: relative; background-color: #f0efee; z-index: 21;}
 .footer .social a { margin-left:20px; color: #A5A2A2; font-weight:500; text-shadow: 1px 1px 1px #ffffff; padding-right: 0; margin-right: 0; cursor: pointer;}
 .footer .social a.disabled { cursor: default; }
 .footer .social a:hover { color: #8e8b8a; text-shadow: 1px 1px 0px #E5E1E1; filter: dropshadow(color=#E5E1E1, offx=1, offy=1); text-decoration: none; }
 .footer .social a:first-child { margin-left:0px; }
 
-.footer .logo { position:absolute; right:30px; top:20px; }
+.footer .logo { position:absolute; right:30px; top:20px; z-index: 20;}
 .footer .logo a { display:block; width:92px; height:27px; background-image:url("../img/tc_logo.png"); position: relative; top: -2px;}
 .footer .logo a span { display:none; }
 .footer .gradient { 
@@ -272,14 +273,17 @@ body.browser-ipad .tier.countdown-details input[type="text"] { background-image:
 
 
 /* iOS tooltips */
-.ios-tooltip {
-	position:absolute; background: url(/img/ios-tooltip-ipad.png) top left no-repeat transparent; width: 250px; height: 123px; z-index: 150;
-	-webkit-transition: all 300ms ease; -moz-transition: all 300ms ease; -o-transition: all 300ms ease; transition: all 300ms ease;
-	}
+.ios-tooltip { position:absolute; z-index: 150; -webkit-transition: all 300ms ease; -moz-transition: all 300ms ease; -o-transition: all 300ms ease; transition: all 300ms ease; }
 body.ios-webapp .ios-tooltip { display: none; }
-body.browser-ipad.portrait .ios-tooltip { top: -8px; left: 140px; }
-body.browser-ipad.landscape .ios-tooltip { top: -8px; left: 78px; }
+body.browser-ipad .ios-tooltip { background: url(/img/ios-tooltip-ipad.png) top left no-repeat transparent; width: 282px; height: 189px; top: -13px; }
+body.browser-iphone .ios-tooltip { background: url(/img/ios-tooltip-retina.png) top left no-repeat transparent; width: 397px; height: 256px; bottom: -55px; left: 295px; }
+body.browser-ipad.portrait .ios-tooltip { left: 92px; }
+body.browser-ipad.landscape .ios-tooltip { left: 30px; }
 
+/* iOS tweaks */
+body.browser-iphone .footer .spread { display: none; }
+body.browser-iphone .footer .social { width: auto; margin: 0; position: relative; left: 25px; }
+body.browser-iphone .footer .logo { top: 23px; }
 
 .content .browser-invalid { position:absolute; top:-40px; width:100%; background-color:#fff0bd; border-bottom:1px solid #f7e28c; height:40px; z-index:1000;}
 .content .browser-invalid .browser-message p { font-size: 15px; font-weight:300; text-align:center; margin-top:8px; text-shadow:1px 1px 1px rgba(255,255,255,0.8);}

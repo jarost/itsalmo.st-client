@@ -178,6 +178,7 @@
 			theTooltip.delay(1500).fadeIn(1000, function() {
 				timeout = setTimeout(removeTooltip,9000);
 			});
+			theTooltip.click(function(){removeTooltip()});
 			function removeTooltip() {
 				theTooltip.fadeOut(500)
 			}
