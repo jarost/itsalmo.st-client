@@ -70,7 +70,7 @@
 			url = 'http://itsalmo.st/#' + window.escape(d.id);
 			twitter_url = 'http://twitter.com/share?url=' + window.escape(url) + '&text=' + window.escape('It\'s Almost ' + d.name);
 			//facebook_url = 'http://www.facebook.com/sharer.php?u=' + window.escape(url) + '&t=' + window.escape('It\'s Almost ' + d.name);
-			facebook_url =   'https://www.facebook.com/dialog/feed?' +
+			facebook_url =   'http://facebook.com/dialog/feed?' +
 			 	'app_id=' + '198989746829532' + '&' +
 				'link=' + window.escape(url+'?') + '&' +
 				'redirect_uri=' + window.escape(url+'?') + '&' +
