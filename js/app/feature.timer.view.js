@@ -173,13 +173,14 @@
 		
 		// iOS 'add to homescreen' tooltips
 		if ((elements.body.hasClass('browser-ipad') || elements.body.hasClass('browser-iphone')) && !(elements.body.hasClass('ios-webapp'))) {
-			elements.body.find('.footer').after('<div class="ios-tooltip" style="opacity:0"></div>');
-			elements.body.find('.ios-tooltip').delay(1000).css({'top':'-=100'}).animate({
-			    opacity: 0.75,
-			    top: '+=100px'
-			  }, 500, function() {
-			    // Animation complete.
+			elements.body.find('.footer').after('<div class="ios-tooltip" style="display:none"></div>');
+			var theTooltip = elements.body.find('.ios-tooltip')
+			theTooltip.delay(1500).fadeIn(1000, function() {
+				timeout = setTimeout(removeTooltip,9000);
 			});
+			function removeTooltip() {
+				theTooltip.fadeOut(500)
+			}
 		}
 		
 	});
