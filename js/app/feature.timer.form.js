@@ -186,7 +186,7 @@
 		};
 		
 		function validate_and_submit(){
-			var date;
+			var date, hour;
 			
 			if (!validationManager.validate()) {
 				return false;
@@ -194,11 +194,22 @@
 			
 			date = elements.date.val().split('/');
 			
+			hour = elements.time.hour.val();
+			if(elements.time.period.val().toLowerCase() == 'pm'){
+				if(hour < 12){
+					hour = hour + 12;
+				}
+			} else {
+				if(hour == 12){
+					hour = 0;
+				}
+			}
+			
 			date = new Date(
 				((date[2].length == 4) ? date[2] : '20'+date[2]),
 				(date[0] - 1),
 				date[1],
-				((elements.time.period.val().toLowerCase() == 'pm') ? ((elements.time.hour.val()*1.0) + 12) : elements.time.hour.val()),
+				hour,
 				elements.time.minute.val()
 			);
 			
