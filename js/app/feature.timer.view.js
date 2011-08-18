@@ -116,13 +116,11 @@
 			},
 			expired:function(starting_off_expired){
 				var timestr, is_pm;
-				
+				app.events.trigger('timer.view.timerExpired');
 				if(starting_off_expired){
 					elements.running.hide();
 					elements.finished.qualified.text(timer.name);
-					
 					timestr = '';
-					
 					if(timer.expires.getHours() > 12){
 						timestr = (timer.expires.getHours() - 12) + ':';
 						is_pm = true;
@@ -143,7 +141,6 @@
 					elements.finished.container.show();
 					vertCenter(tc.jQ('.timer-pane'));
 				} else {
-					app.events.trigger('timer.view.timerExpired');
 					favicon.setFavicon("./img/favicon/favicon-ani.gif");
 					elements.qualifier.text('It\'s');
 					document.title = 'It\'s ' + timer.name;
@@ -169,6 +166,8 @@
 			}
 			if(timer.expired){
 				render.expired(true);
+				e.stopPropagation();
+				e.stopImmediatePropagation();
 			} else {
 				render.start(true);
 				cycle();
