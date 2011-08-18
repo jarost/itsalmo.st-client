@@ -156,29 +156,54 @@
 		});
 		
 		// Vertical centering
+		var theWindow = tc.jQ(window);
+		var footerHeight = tc.jQ('.footer').height();
+		
 		function vertCenter(ele) {
-			var winHeight = tc.jQ(window).height() - tc.jQ('.footer').height();
+			var winHeight = theWindow.height() - footerHeight;
 			var eleHeight = ele.height();
 			ele.css('top', Math.ceil((winHeight - eleHeight) * 0.4));
 		}
 		
-		tc.jQ(window).resize(function() {
+		function elementsToCenter() {
 			vertCenter(tc.jQ('.start-pane'));
 			vertCenter(tc.jQ('.timer-pane'));
+			vertCenter(tc.jQ('.finished-pane'));
 			vertCenter(tc.jQ('.modal-container'));
+		};
+		
+		tc.jQ(window).resize(function() {
+			elementsToCenter();
 		});
-	
-		vertCenter(tc.jQ('.start-pane, .share-pane, .timer-pane'));
+		elementsToCenter();
 		
 		
 		// iOS 'add to homescreen' tooltips
-		if ((elements.body.hasClass('browser-ipad') || elements.body.hasClass('browser-iphone')) && !(elements.body.hasClass('ios-webapp'))) {
+		var isIpad = elements.body.hasClass('browser-ipad') ;
+		var isIphone = elements.body.hasClass('browser-iphone');
+		
+		if ((isIpad || isIphone) && !(elements.body.hasClass('ios-webapp'))) {
 			elements.body.find('.footer').after('<div class="ios-tooltip" style="display:none"></div>');
 			var theTooltip = elements.body.find('.ios-tooltip')
-			theTooltip.delay(1500).fadeIn(1000, function() {
-				timeout = setTimeout(removeTooltip,9000);
+			
+			if (isIpad) {
+				theTooltip.css({'top':'-=175','display':'block'}).delay(2500).animate({
+					top: '+=190'
+				}, 750, 'easeOutExpo', function() {
+					theTooltip.animate({
+						top:'-=15'
+					}, 100, 'easeOutExpo');
+					tooltipTimeout = setTimeout(removeTooltip, 12000);
+				});
+			} else {
+				theTooltip.delay(2500).fadeIn(750, function() {
+					timeout = setTimeout(removeTooltip,12000);
+				});
+			}
+			
+			theTooltip.click(function(){
+				removeTooltip()
 			});
-			theTooltip.click(function(){removeTooltip()});
 			function removeTooltip() {
 				theTooltip.fadeOut(500)
 			}

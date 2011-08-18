@@ -56,7 +56,8 @@ a:visited{
 #countdown-timeperiod {width:65px;}
 
 .start-pane,
-.timer-pane { position: absolute; top: 7%; left: 0; right: 0; opacity:0.0; }
+.timer-pane,
+.finished-pane { position: absolute; top: 7%; left: 0; right: 0; opacity:0.0; }
 
 .start-pane .tier { text-align:center; margin:60px auto 0; z-index:100;}
 .start-pane .tier,
@@ -106,9 +107,10 @@ a:visited{
 	}
 
 .timer-pane { z-index:50; }
-.timer-pane .description { text-align:center;font-weight:300; font-size:60px; word-break: break-word;
-  margin-bottom:40px; line-height: 68px; padding:0 30px;  cursor:default;}
-.timer-pane .description span.qualified { font-weight:600; }
+.timer-pane .description { text-align:center; font-weight:300; font-size:60px; word-break: break-word;
+	margin-bottom:40px; line-height: 68px; padding:0 30px;  cursor:default;}
+.timer-pane .description span.qualified,
+.finished-pane .description span.qualified { font-weight:600; }
 .timer-pane .timer { font-weight:300; text-align: center; margin-left: 30px; line-height: 46px; cursor:default;}
 .timer-pane .timer span.days,
 .timer-pane .timer span.hours,
@@ -118,6 +120,14 @@ a:visited{
 .timer-pane .timer .seconds-container { min-width: 260px; font-weight: 300; text-align: left; display: inline-block;}
 .timer-pane .timer .seconds-container span { font-weight: 600;}
 .timer-pane .timer span.milliseconds { font-size:0.5em; color:#ccc7c6; display: inline-block; text-align: left; width: 40px;}
+
+.finished-pane { z-index:51; text-align: center; }
+.finished-pane p { text-align: center }
+.finished-pane .description { font-weight:300; font-size:60px; word-break: break-word; line-height: 80px; padding:0 30px; cursor:default;}
+.finished-pane .description .sub-qualifier { font-size: 48px; }
+.finished-pane .date,
+.finished-pane .time { font-weight: 600; }
+.finished-pane p.again { font-size: 22px; line-height: 1; margin-top: 55px; margin-bottom: 40px; }
 
 .modal-overlay, .mask { position: absolute; z-index: 200; top: 0; left: 0; bottom: 0; right: 0; 
 	/*-moz-box-shadow:inset 0px 0px 100px rgba(0,0,0,1); -webkit-box-shadow:inset 0px 0px 100px rgba(0,0,0,1); box-shadow:inset 0px 0px 100px rgba(0,0,0,1);*/ 
@@ -134,11 +144,10 @@ a:visited{
 .modal ul a:hover { text-decoration: none; text-shadow: 1px 1px 0px #E5E1E1; filter: dropshadow(color=#E5E1E1, offx=1, offy=1); }
 .modal .gradient { position: absolute; top: 5px; bottom: 5px; right: 50px; width: 20px; }
 
-.modal.your-countdowns { top: -36px; }
 .modal.your-countdowns h2 { font-weight: 600px; margin-bottom: 40px; font-size: 200%; }
 .modal.your-countdowns li { text-align: center; font-size: 150%; margin-bottom: 20px; word-wrap: break-work;}
 .overlay > .tier > .tier { vertical-align: middle; }
-.overlay > .tier > .tier > .pane { width: 550px; margin: 0 auto 0; }
+.overlay > .tier > .tier > .pane { width: 550px; margin: 0 auto 0; top: -36px; }
 .overlay .pane { -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none; }
 
 .share-pane { white-space: nowrap; }
@@ -275,7 +284,7 @@ body.browser-ipad .tier.countdown-details input[type="text"] { background-image:
 /* iOS tooltips */
 .ios-tooltip { position:absolute; z-index: 150; -webkit-transition: all 300ms ease; -moz-transition: all 300ms ease; -o-transition: all 300ms ease; transition: all 300ms ease; }
 body.ios-webapp .ios-tooltip { display: none; }
-body.browser-ipad .ios-tooltip { background: url(/img/ios-tooltip-ipad.png) top left no-repeat transparent; width: 282px; height: 189px; top: -13px; }
+body.browser-ipad .ios-tooltip { background: url(/img/ios-tooltip-ipad.png) top left no-repeat transparent; width: 282px; height: 189px; top: -8px; }
 body.browser-iphone .ios-tooltip { background: url(/img/ios-tooltip-retina.png) top left no-repeat transparent; width: 397px; height: 256px; bottom: -55px; left: 295px; }
 body.browser-ipad.portrait .ios-tooltip { left: 92px; }
 body.browser-ipad.landscape .ios-tooltip { left: 30px; }
@@ -284,6 +293,7 @@ body.browser-ipad.landscape .ios-tooltip { left: 30px; }
 body.browser-iphone .footer .spread { display: none; }
 body.browser-iphone .footer .social { width: auto; margin: 0; position: relative; left: 25px; }
 body.browser-iphone .footer .logo { top: 23px; }
+body.browser-ipad .timer-pane { margin-top: 5%; }
 
 .content .browser-invalid { position:absolute; top:-40px; width:100%; background-color:#fff0bd; border-bottom:1px solid #f7e28c; height:40px; z-index:1000;}
 .content .browser-invalid .browser-message p { font-size: 15px; font-weight:300; text-align:center; margin-top:8px; text-shadow:1px 1px 1px rgba(255,255,255,0.8);}
