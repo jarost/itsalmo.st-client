@@ -56,8 +56,7 @@ a:visited{
 #countdown-timeperiod {width:65px;}
 
 .start-pane,
-.timer-pane,
-.finished-pane { position: absolute; top: 7%; left: 0; right: 0; opacity:0.0; }
+.timer-pane { position: absolute; top: 7%; left: 0; right: 0; }
 
 .start-pane .tier { text-align:center; margin:60px auto 0; z-index:100;}
 .start-pane .tier,

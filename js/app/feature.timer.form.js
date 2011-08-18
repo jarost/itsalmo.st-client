@@ -226,7 +226,9 @@
 		}).addClass('disabled');
 		
 		app.events.bind('timer.manager.timerLoaded',function(e,d){
-			if(newTimerId){
+			if(d.expired && newTimerId){
+				elements.start_btn.removeClass('disabled');
+			} else if(!d.expired && newTimerId){
 				generate_id(newTimerId,true);
 			}
 			elements.url_id_loader.hide();
