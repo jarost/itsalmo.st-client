@@ -101,7 +101,7 @@
 		});
 		
 		NI.ValidationManager.registerErrorMessage('date',(function(){
-			return "Oops. Invalid date.<br /> Try one like " + randomFutureDateStr();
+			return "Oops. Invalid date. Try one like " + randomFutureDateStr();
 		})());
 		
 		function validationHint(element, hint) {
