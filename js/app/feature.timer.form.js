@@ -45,25 +45,36 @@
 						}
 						return { valid:true };
 					},function(val){
-						date = val.split('/');
+						date_arr = val.split('/');
 						
-						if(!(date.length == 3)){
+						if(!(date_arr.length == 3)){
 							return { valid:false, errors:['Oops. Invalid date.'] };
 						}
 						
+						hour = (elements.time.hour.val() * 1.0);
+						if(elements.time.period.val().toLowerCase() == 'pm'){
+							if(hour < 12){
+								hour = hour + 12;
+							}
+						} else {
+							if(hour == 12){
+								hour = 0;
+							}
+						}
+						
 						date = new Date(
-							((date[2].length == 4) ? date[2] : '20'+date[2]),
-							(date[0] - 1),
-							date[1],
-							0,
-							0
+							((date_arr[2].length == 4) ? date_arr[2] : '20'+date_arr[2]),
+							(date_arr[0] - 1),
+							date_arr[1],
+							hour,
+							elements.time.minute.val()
 						);
 						
-						if(date.getTime() < (new Date())){
+						if(date.getTime() < (new Date()).getTime()){
 							return { valid:false, errors:['Can\'t countdown to the past.'] };
 						}
 						
-						if(date.getTime() > (new Date(2038))){
+						if(date.getTime() > (new Date(2038,0,0)).getTime()){
 							return { valid:false, errors:['Let\'s keep it within 20 years.'] };
 						}
 						
@@ -117,7 +128,6 @@
 		}
 				
 		validationHint(elements.date, function(d) {
-			console.log(d);
 			return d.errors[0];
 		});
 		
