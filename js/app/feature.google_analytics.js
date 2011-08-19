@@ -12,16 +12,8 @@
 			account:app.page.env.ga_account
 		});
 		
-		if(!app.google_analytics.tracker){
-			return;
-		}
-		
 		app.events.bind('hashchange.hashChanged',function(e,d){
-			if(!d.hash.length){
-				app.google_analytics.tracker._trackEvent('page', 'home');
-			} else {
-				app.google_analytics.tracker._trackEvent('page', 'timer', d.hash);
-			}
+			_gaq.push(['_trackPageview', location.pathname + location.hash]);
 		});
 		
 	});

@@ -37,7 +37,43 @@
 				},
 				{
 					element: elements.date, 
-					validators:["required", "date"]
+					validators:["required", "date",function(val){
+						var date_arr, date;
+						date_arr = val.split('/');
+						
+						if(!(date_arr.length == 3)){
+							return { valid:false, errors:['Oops. Invalid date.'] };
+						}
+						
+						hour = (elements.time.hour.val() * 1.0);
+						if(elements.time.period.val().toLowerCase() == 'pm'){
+							if(hour < 12){
+								hour = hour + 12;
+							}
+						} else {
+							if(hour == 12){
+								hour = 0;
+							}
+						}
+						
+						date = new Date(
+							((date_arr[2].length == 4) ? date_arr[2] : '20'+date_arr[2]),
+							(date_arr[0] - 1),
+							date_arr[1],
+							hour,
+							elements.time.minute.val()
+						);
+						
+						if(date.getTime() < (new Date()).getTime()){
+							return { valid:false, errors:['Can\'t countdown to the past.'] };
+						}
+						
+						if(date.getTime() > (new Date(2038,0,0)).getTime()){
+							return { valid:false, errors:['Let\'s keep it within 20 years.'] };
+						}
+						
+						return { valid:true };
+					}]
 				},
 				{
 					element: elements.time.hour,
@@ -64,7 +100,12 @@
 			watchEvents: ['keyup']
 		});
 		
+		NI.ValidationManager.registerErrorMessage('date',(function(){
+			return "Oops. Invalid date."
+		})());
+		
 		function validationHint(element, hint) {
+			
 			element.bind("validationFail", function(e, d) {
 				var $field = $(this),
 				    $hint = $field.parent().find(".validation-notice");
@@ -72,19 +113,20 @@
 					$hint = $("<div class='validation-notice'></div>");
 					$field.parent().append($hint);
 				}
-				$hint.html($.isFunction(hint) ? hint() : hint);
+				$hint.html($.isFunction(hint) ? hint(d) : hint);
 				
 			}).bind("validationPass", function(e, d) {
 				$(this).parent().find(".validation-notice").remove();
 			});
+			
 		}
 				
-		validationHint(elements.date, function() {
-			return "Oops! We need a valid date, like "+ randomFutureDateStr();
+		validationHint(elements.date, function(d) {
+			return d.errors[0];
 		});
 		
 		$.each([elements.time.hour, elements.time.minute, elements.time.period], function(i, element) {
-			validationHint(element, function() {
+			validationHint(element, function(d) {
 				return "Oops! We need a valid time, like "+ randomTimeStr();
 			});
 		});
@@ -186,25 +228,32 @@
 		};
 		
 		function validate_and_submit(){
-			var date;
+			var date_arr, date, hour;
 			
 			if (!validationManager.validate()) {
 				return false;
 			}
 			
-			date = elements.date.val().split('/');
+			date_arr = elements.date.val().split('/');
+			
+			hour = (elements.time.hour.val() * 1.0);
+			if(elements.time.period.val().toLowerCase() == 'pm'){
+				if(hour < 12){
+					hour = hour + 12;
+				}
+			} else {
+				if(hour == 12){
+					hour = 0;
+				}
+			}
 			
 			date = new Date(
-				((date[2].length == 4) ? date[2] : '20'+date[2]),
-				(date[0] - 1),
-				date[1],
-				((elements.time.period.val().toLowerCase() == 'pm') ? ((elements.time.hour.val()*1.0) + 12) : elements.time.hour.val()),
+				((date_arr[2].length == 4) ? date_arr[2] : '20'+date_arr[2]),
+				((date_arr[0] * 1.0) - 1),
+				date_arr[1],
+				hour,
 				elements.time.minute.val()
 			);
-			
-			if(date.getTime() < (new Date())){
-				return false;
-			}
 			
 			app.events.trigger('form.timerGenerated',{
 				newTimerId:newTimerId,
@@ -226,7 +275,9 @@
 		}).addClass('disabled');
 		
 		app.events.bind('timer.manager.timerLoaded',function(e,d){
-			if(newTimerId){
+			if(d.expired && newTimerId){
+				elements.start_btn.removeClass('disabled');
+			} else if(!d.expired && newTimerId){
 				generate_id(newTimerId,true);
 			}
 			elements.url_id_loader.hide();
@@ -249,6 +300,10 @@
 					opacity:1.0
 				},500,function(){
 					dom.css('opacity','none');
+					if(hint_timer){
+						clearTimeout(hint_timer);
+					}
+					hint_timer = setTimeout(changeText,5000);
 				});
 			} else {
 				newTimerId = null;

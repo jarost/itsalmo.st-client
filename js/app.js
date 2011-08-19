@@ -20,7 +20,10 @@
                              \::/    /        
                               \/____/         
                              TYPE/CODE        
-                         From 2010 till ∞     */
+                         From 2010 till ∞     
+
+       It's Almost...
+        Version 1.0  */
 
 if(!tc){ var tc = {}; }
 
