@@ -32,8 +32,8 @@
 				time:dom.find('.finished-pane .time'),
 				date:dom.find('.finished-pane .date')
 			},
-			qualifier:dom.find('.description span.qualifier'),
-			qualified:dom.find('.description span.qualified'),
+			qualifier:dom.find('.running-pane .description span.qualifier'),
+			qualified:dom.find('.running-pane .description span.qualified'),
 			timer:dom.find('.timer'),
 			milliseconds:dom.find('.timer .milliseconds'),
 			seconds:dom.find('.timer .seconds'),
@@ -55,7 +55,7 @@
 			start:function(running){
 				if(running){
 					elements.finished.container.hide();
-					elements.qualifier.text('It\'s almost');
+					elements.qualifier.html('It&rsquo;s almost');
 					elements.timer.show();
 					elements.running.show();
 				} else {
@@ -141,7 +141,7 @@
 					vertCenter(tc.jQ('.timer-pane'));
 				} else {
 					favicon.setFavicon("./img/favicon/favicon-ani.gif");
-					elements.qualifier.text('It\'s');
+					elements.qualifier.html('It&rsquo;s');
 					document.title = 'It\'s ' + timer.name;
 					elements.timer.hide();
 				}
@@ -243,7 +243,7 @@
 					$(this).hide();
 				});
 			} else {
-				render.start(true);
+				render.start();
 				dom.stop(true,true).show().animate({
 					opacity:1.0
 				},500,function(){
