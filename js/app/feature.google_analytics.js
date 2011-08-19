@@ -13,7 +13,12 @@
 		});
 		
 		app.events.bind('hashchange.hashChanged',function(e,d){
-			_gaq.push(['_trackPageview', location.pathname + location.hash]);
+			
+			if(app.google_analytics.tracker){
+				app.google_analytics.tracker._trackPageview((location.pathname + location.hash));
+			} else {
+				_gaq.push(['_trackPageview', location.pathname + location.hash]);
+			}
 			
 			//chartbeat stuff
 			if(typeof pSUPERFLY != 'undefined' && pSUPERFLY){
