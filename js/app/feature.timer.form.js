@@ -37,14 +37,7 @@
 				},
 				{
 					element: elements.date, 
-					validators:["required", "date", function(val){
-						if((val.split('/')[2] * 1.0) > 2038){
-							return {
-								valid:false, errors:['Singularity occurs in 2038.']
-							};
-						}
-						return { valid:true };
-					},function(val){
+					validators:["required", "date",function(val){
 						var date_arr, date;
 						date_arr = val.split('/');
 						
