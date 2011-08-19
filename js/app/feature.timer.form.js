@@ -37,14 +37,7 @@
 				},
 				{
 					element: elements.date, 
-					validators:["required", "date", function(val){
-						if((val.split('/')[2] * 1.0) > 2038){
-							return {
-								valid:false, errors:['Singularity occurs in 2038.']
-							};
-						}
-						return { valid:true };
-					},function(val){
+					validators:["required", "date",function(val){
 						var date_arr, date;
 						date_arr = val.split('/');
 						
@@ -307,6 +300,10 @@
 					opacity:1.0
 				},500,function(){
 					dom.css('opacity','none');
+					if(hint_timer){
+						clearTimeout(hint_timer);
+					}
+					hint_timer = setTimeout(changeText,5000);
 				});
 			} else {
 				newTimerId = null;
