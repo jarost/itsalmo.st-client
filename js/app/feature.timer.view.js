@@ -50,7 +50,8 @@
 		
 		var render = {
 			loading:function(){
-				
+				elements.running.hide();
+				elements.finished.container.hide();
 			},
 			start:function(running){
 				if(running){
@@ -243,7 +244,7 @@
 					$(this).hide();
 				});
 			} else {
-				render.start();
+				render.loading();
 				dom.stop(true,true).show().animate({
 					opacity:1.0
 				},500,function(){

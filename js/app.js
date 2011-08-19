@@ -23,7 +23,7 @@
                          From 2010 till ∞     
 
        It's Almost...
-        Version 1.0.5  */
+        Version 1.0.6  */
 
 if(!tc){ var tc = {}; }
 
