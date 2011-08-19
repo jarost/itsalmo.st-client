@@ -17,7 +17,7 @@
 			
 			//chartbeat stuff
 			if(typeof pSUPERFLY != 'undefined' && pSUPERFLY){
-				pSUPERFLY.virtualPage((location.pathname + location.hash), "#" + location.hash);
+				pSUPERFLY.virtualPage((location.pathname + location.hash), location.hash);
 			}
 			
 		});
