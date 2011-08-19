@@ -457,9 +457,6 @@
 		}).addClass('disabled');
 		
 		app.events.bind('timer.manager.timerLoaded',function(e,d){
-			console.log('timer.manager.timerLoaded');
-			console.log(d)
-			console.log(newTimerId)
 			if(d.expired && newTimerId){
 				elements.start_btn.removeClass('disabled');
 			} else if(!d.expired && newTimerId){
@@ -473,9 +470,6 @@
 		});
 		
 		app.events.bind('timer.manager.noTimerLoaded',function(e,d){
-			console.log('timer.manager.noTimerLoaded');
-			console.log(d)
-			console.log(newTimerId)
 			elements.start_btn.removeClass('disabled');
 			elements.url_id_loader.hide();
 		});
