@@ -14,6 +14,12 @@
 		
 		app.events.bind('hashchange.hashChanged',function(e,d){
 			_gaq.push(['_trackPageview', location.pathname + location.hash]);
+			
+			//chartbeat stuff
+			if(typeof pSUPERFLY != 'undefined' && pSUPERFLY){
+				pSUPERFLY.virtualPage((location.pathname + location.hash), "#" + location.hash);
+			}
+			
 		});
 		
 	});
