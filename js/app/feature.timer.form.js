@@ -37,7 +37,38 @@
 				},
 				{
 					element: elements.date, 
-					validators:["required", "date"]
+					validators:["required", "date", function(val){
+						if((val.split('/')[2] * 1.0) > 2038){
+							return {
+								valid:false, errors:['Singularity occurs in 2038.']
+							};
+						}
+						return { valid:true };
+					},function(val){
+						date = val.split('/');
+						
+						if(!(date.length == 3)){
+							return { valid:false, errors:['Oops. Invalid date.'] };
+						}
+						
+						date = new Date(
+							((date[2].length == 4) ? date[2] : '20'+date[2]),
+							(date[0] - 1),
+							date[1],
+							0,
+							0
+						);
+						
+						if(date.getTime() < (new Date())){
+							return { valid:false, errors:['Can\'t countdown to the past.'] };
+						}
+						
+						if(date.getTime() > (new Date(2038))){
+							return { valid:false, errors:['Let\'s keep it within 20 years.'] };
+						}
+						
+						return { valid:true };
+					}]
 				},
 				{
 					element: elements.time.hour,
@@ -64,7 +95,12 @@
 			watchEvents: ['keyup']
 		});
 		
+		NI.ValidationManager.registerErrorMessage('date',(function(){
+			return "Oops. Invalid date."
+		})());
+		
 		function validationHint(element, hint) {
+			
 			element.bind("validationFail", function(e, d) {
 				var $field = $(this),
 				    $hint = $field.parent().find(".validation-notice");
@@ -72,19 +108,21 @@
 					$hint = $("<div class='validation-notice'></div>");
 					$field.parent().append($hint);
 				}
-				$hint.html($.isFunction(hint) ? hint() : hint);
+				$hint.html($.isFunction(hint) ? hint(d) : hint);
 				
 			}).bind("validationPass", function(e, d) {
 				$(this).parent().find(".validation-notice").remove();
 			});
+			
 		}
 				
-		validationHint(elements.date, function() {
-			return "Oops! We need a valid date, like "+ randomFutureDateStr();
+		validationHint(elements.date, function(d) {
+			console.log(d);
+			return d.errors[0];
 		});
 		
 		$.each([elements.time.hour, elements.time.minute, elements.time.period], function(i, element) {
-			validationHint(element, function() {
+			validationHint(element, function(d) {
 				return "Oops! We need a valid time, like "+ randomTimeStr();
 			});
 		});
