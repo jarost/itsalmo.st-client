@@ -17,7 +17,7 @@
 			browser_header.hide();
 		});
 		
-		if($.browser.msie || $.browser.opera){
+		if($.browser.msie){
 			browser_header.show().animate({
 				top:'0px'
 			},600,function(){
