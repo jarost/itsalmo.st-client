@@ -103,6 +103,10 @@
 		
 		/* handle modal hiding and showing */
 		elements.share_button.bind('click',function() {
+			if($(this).hasClass('disabled')){
+				return;
+			}
+			
 			if (elements.body.hasClass('browser-ipad')) {
 				elements.modal.overlay.show();
 				elements.modal.container.show();

@@ -45,6 +45,7 @@
 						}
 						return { valid:true };
 					},function(val){
+						var date_arr, date;
 						date_arr = val.split('/');
 						
 						if(!(date_arr.length == 3)){
@@ -234,15 +235,15 @@
 		};
 		
 		function validate_and_submit(){
-			var date, hour;
+			var date_arr, date, hour;
 			
 			if (!validationManager.validate()) {
 				return false;
 			}
 			
-			date = elements.date.val().split('/');
+			date_arr = elements.date.val().split('/');
 			
-			hour = elements.time.hour.val();
+			hour = (elements.time.hour.val() * 1.0);
 			if(elements.time.period.val().toLowerCase() == 'pm'){
 				if(hour < 12){
 					hour = hour + 12;
@@ -254,16 +255,12 @@
 			}
 			
 			date = new Date(
-				((date[2].length == 4) ? date[2] : '20'+date[2]),
-				(date[0] - 1),
-				date[1],
+				((date_arr[2].length == 4) ? date_arr[2] : '20'+date_arr[2]),
+				((date_arr[0] * 1.0) - 1),
+				date_arr[1],
 				hour,
 				elements.time.minute.val()
 			);
-			
-			if(date.getTime() < (new Date())){
-				return false;
-			}
 			
 			app.events.trigger('form.timerGenerated',{
 				newTimerId:newTimerId,
