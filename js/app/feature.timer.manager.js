@@ -21,9 +21,6 @@
 				url:'/'+app.page.env.server_name+'/timer/'+id.toLowerCase(),
 				type:'GET',
 				success:function(data, textStatus, jqXHR){
-					
-					console.log(data);
-					
 					if(!data.length){
 						app.events.trigger('timer.manager.noTimerLoaded',{});
 						return;
