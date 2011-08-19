@@ -300,6 +300,10 @@
 					opacity:1.0
 				},500,function(){
 					dom.css('opacity','none');
+					if(hint_timer){
+						clearTimeout(hint_timer);
+					}
+					hint_timer = setTimeout(changeText,5000);
 				});
 			} else {
 				newTimerId = null;
