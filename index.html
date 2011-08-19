@@ -260,24 +260,14 @@
 			<script type='text/javascript' src='./js/lib/typecode-js/tc.validation.js'></script>
 			<script type='text/javascript' src='./js/lib/typecode-js/tc.social_rotator.js'></script>
 			<script type='text/javascript' src='./js/lib/typecode-js/tc.cookies.js'></script>
-
-			<!-- Application -->
-			<script type='text/javascript' src='./js/app.js'></script>
-			
-			<!-- Application Features -->
-			<script type='text/javascript' src='./js/app/feature.google_analytics.js'></script>
-			<script type='text/javascript' src='./js/app/feature.browser_detection.js'></script>
-			<script type='text/javascript' src='./js/app/feature.user.js'></script>
-			<script type='text/javascript' src='./js/app/feature.user.view.js'></script>
-			<script type='text/javascript' src='./js/app/feature.hashchange.js'></script>
-			<script type='text/javascript' src='./js/app/feature.timer.manager.js'></script>
-			<script type='text/javascript' src='./js/app/feature.timer.view.js'></script>
-			<script type='text/javascript' src='./js/app/feature.timer.form.js'></script>
-			<script type='text/javascript' src='./js/app/feature.footer.js'></script>
 			
 			<!-- Chartbeat -->
 			<script type="text/javascript">
-				var _sf_async_config={uid:27764,domain:"itsalmo.st"};
+				var _sf_async_config={
+					uid:27764,
+					domain:"itsalmo.st",
+					path:(location.pathname + location.hash)
+				};
 				(function(){
 					function loadChartbeat() {
 						window._sf_endpt=(new Date()).getTime();
@@ -292,8 +282,22 @@
 					var oldonload = window.onload;
 					window.onload = (typeof window.onload != 'function') ?
 						loadChartbeat : function() { oldonload(); loadChartbeat(); };
-					})();
-				</script>
+				})();
+			</script>
+			
+			<!-- Application -->
+			<script type='text/javascript' src='./js/app.js'></script>
+			
+			<!-- Application Features -->
+			<script type='text/javascript' src='./js/app/feature.google_analytics.js'></script>
+			<script type='text/javascript' src='./js/app/feature.browser_detection.js'></script>
+			<script type='text/javascript' src='./js/app/feature.user.js'></script>
+			<script type='text/javascript' src='./js/app/feature.user.view.js'></script>
+			<script type='text/javascript' src='./js/app/feature.hashchange.js'></script>
+			<script type='text/javascript' src='./js/app/feature.timer.manager.js'></script>
+			<script type='text/javascript' src='./js/app/feature.timer.view.js'></script>
+			<script type='text/javascript' src='./js/app/feature.timer.form.js'></script>
+			<script type='text/javascript' src='./js/app/feature.footer.js'></script>
 			
 	</body>
 	
