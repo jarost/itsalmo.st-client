@@ -21,6 +21,9 @@
 				url:'/'+app.page.env.server_name+'/timer/'+id.toLowerCase(),
 				type:'GET',
 				success:function(data, textStatus, jqXHR){
+					
+					console.log(data);
+					
 					if(!data.length){
 						app.events.trigger('timer.manager.noTimerLoaded',{});
 						return;
@@ -56,6 +59,8 @@
 				}
 			});
 		};
+		
+		
 		
 		app.events.bind('form.newTimerIdGenerated',function(e,d){
 			get_timer(d.newTimerId);
