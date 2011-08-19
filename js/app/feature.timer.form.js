@@ -101,7 +101,7 @@
 		});
 		
 		NI.ValidationManager.registerErrorMessage('date',(function(){
-			return "Oops. Invalid date."
+			return "Oops. Invalid date. Try one like " + randomFutureDateStr();
 		})());
 		
 		function validationHint(element, hint) {
@@ -266,52 +266,6 @@
 			return true;
 		};
 		
-		elements.name.bind('change keyup',function(e,d){
-			generate_id(elements.name.val());
-		});
-		
-		elements.start_btn.bind('click',function(e,d){
-			if(!validate_and_submit()){}
-		}).addClass('disabled');
-		
-		app.events.bind('timer.manager.timerLoaded',function(e,d){
-			if(d.expired && newTimerId){
-				elements.start_btn.removeClass('disabled');
-			} else if(!d.expired && newTimerId){
-				generate_id(newTimerId,true);
-			}
-			elements.url_id_loader.hide();
-		});
-		
-		app.events.bind('timer.manager.timerCreated',function(e,d){
-			newTimerId = null;
-		});
-		
-		app.events.bind('timer.manager.noTimerLoaded',function(e,d){
-			elements.start_btn.removeClass('disabled');
-			elements.url_id_loader.hide();
-		});
-		
-		app.events.bind('hashchange.hashChanged',function(e,d){
-			if(!d.hash.length){
-				clear_form();
-				document.title = 'It\'s Almost';
-				dom.stop(true, true).show().animate({
-					opacity:1.0
-				},500,function(){
-					dom.css('opacity','none');
-				});
-			} else {
-				newTimerId = null;
-				dom.stop().animate({
-					opacity:0.0
-				},500,function(){
-					$(this).hide();
-				});
-			}
-		});
-		
-		
 		/* handle the hiding/showing of the empty state text for countdown name */
 		var emptyPhrases;
 		emptyPhrases = (function(arr){
@@ -461,7 +415,6 @@
 			return false;
 		});
 		
-		
 		/* am/pm picker */
 		var pickerActive = false;
 		
@@ -491,7 +444,55 @@
 			elements.time.period.val( $(e.target).text() );
 			elements.time.period_picker.slideUp(200);
 			pickerActive = false;
-		});		
+		});
+		
+		
+		
+		elements.name.bind('change keyup',function(e,d){
+			generate_id(elements.name.val());
+		});
+		
+		elements.start_btn.bind('click',function(e,d){
+			if(!validate_and_submit()){}
+		}).addClass('disabled');
+		
+		app.events.bind('timer.manager.timerLoaded',function(e,d){
+			if(d.expired && newTimerId){
+				elements.start_btn.removeClass('disabled');
+			} else if(!d.expired && newTimerId){
+				generate_id(newTimerId,true);
+			}
+			elements.url_id_loader.hide();
+		});
+		
+		app.events.bind('timer.manager.timerCreated',function(e,d){
+			newTimerId = null;
+		});
+		
+		app.events.bind('timer.manager.noTimerLoaded',function(e,d){
+			elements.start_btn.removeClass('disabled');
+			elements.url_id_loader.hide();
+		});
+		
+		app.events.bind('hashchange.hashChanged',function(e,d){
+			if(!d.hash.length){
+				clear_form();
+				document.title = 'It\'s Almost';
+				dom.stop(true, true).show().animate({
+					opacity:1.0
+				},500,function(){
+					dom.css('opacity','none');
+				});
+			} else {
+				newTimerId = null;
+				dom.stop().animate({
+					opacity:0.0
+				},500,function(){
+					$(this).hide();
+				});
+			}
+		});
+		
 		
 	});
 	

@@ -67,7 +67,7 @@ a:visited{
 
 .countdown-details .detail { float:left; position:relative; }
 .countdown-details .detail .validation-notice { position:absolute; bottom:-25px; width:100%; }
-.countdown-details .detail.date .validation-notice { text-align:center; margin-left: 95px; width: 230px; }
+.countdown-details .detail.date .validation-notice { text-align:center; margin-left: 85px; width: 250px; }
 
 .start-pane #countdown-date { width:200px; text-align: center; }
 .start-pane #countdown-timeperiod { text-transform: uppercase; }

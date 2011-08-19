@@ -53,18 +53,17 @@
 				
 			},
 			start:function(running){
-				elements.finished.container.hide();
-				elements.running.hide();
 				if(running){
+					elements.finished.container.hide();
+					elements.qualifier.text('It\'s almost');
+					elements.timer.show();
 					elements.running.show();
-					vertCenter(tc.jQ('.timer-pane'));
+				} else {
+					elements.running.hide();
+					elements.finished.container.show();
 				}
+				vertCenter(tc.jQ('.timer-pane'));
 				favicon.setFavicon("./img/favicon/favicon-still.png");
-				//elements.qualifier.text('It\'s almost');
-				elements.timer.show();
-				//elements.minutes.parent().show();
-				//elements.hours.parent().show();
-				//elements.days.parent().show();
 			},
 			display:function(){
 				var diff, time_exploded;
@@ -158,49 +157,6 @@
 			}
 		}
 		
-		app.events.bind('timer.manager.timerLoaded',function(e,d){
-			timer = d;
-			if(timeout){ clearTimeout(timeout); }
-			if(dom.filter(':visible').length){
-				document.title = 'It\'s Almost ' + timer.name;
-			}
-			if(timer.expired){
-				render.expired(true);
-				e.stopPropagation();
-				e.stopImmediatePropagation();
-			} else {
-				render.start(true);
-				cycle();
-			}
-			
-		});
-		
-		app.events.bind('timer.manager.noTimerLoaded',function(e,d){
-			if(timeout){
-				clearTimeout(timeout);
-			}
-		});
-		
-		app.events.bind('hashchange.hashChanged',function(e,d){
-			if(!d.hash.length){
-				vertCenter(tc.jQ('.timer-pane'));
-				dom.stop().animate({
-					opacity:0.0
-				},500,function(){
-					render.start();
-					$(this).hide();
-				});
-			} else {
-				render.start();
-				vertCenter(tc.jQ('.timer-pane'));
-				dom.stop(true,true).show().animate({
-					opacity:1.0
-				},500,function(){
-					dom.css('opacity','none');
-				});
-			}
-		});
-		
 		// Vertical centering
 		var theWindow = tc.jQ(window);
 		var footerHeight = tc.jQ('.footer').height();
@@ -221,7 +177,6 @@
 			elementsToCenter();
 		});
 		elementsToCenter();
-		
 		
 		// iOS 'add to homescreen' tooltips
 		var isIpad = elements.body.hasClass('browser-ipad') ;
@@ -253,6 +208,49 @@
 				theTooltip.fadeOut(500)
 			}
 		}
+		
+		
+		
+		
+		app.events.bind('timer.manager.timerLoaded',function(e,d){
+			timer = d;
+			if(timeout){ clearTimeout(timeout); }
+			if(dom.filter(':visible').length){
+				document.title = 'It\'s Almost ' + timer.name;
+			}
+			if(timer.expired){
+				render.expired(true);
+			} else {
+				render.start(true);
+				cycle();
+			}
+			
+		});
+		
+		app.events.bind('timer.manager.noTimerLoaded',function(e,d){
+			if(timeout){
+				clearTimeout(timeout);
+			}
+		});
+		
+		app.events.bind('hashchange.hashChanged',function(e,d){
+			if(!d.hash.length){
+				vertCenter(tc.jQ('.timer-pane'));
+				dom.stop().animate({
+					opacity:0.0
+				},500,function(){
+					render.start();
+					$(this).hide();
+				});
+			} else {
+				render.start(true);
+				dom.stop(true,true).show().animate({
+					opacity:1.0
+				},500,function(){
+					dom.css('opacity','none');
+				});
+			}
+		});
 		
 	});
 	
