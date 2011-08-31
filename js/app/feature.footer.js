@@ -21,10 +21,13 @@
 			modal:{
 				overlay:$('.share-pane .modal-overlay'),
 				container:$('.share-pane .modal-container'),
-				url_link:$('.share-pane .modal-container').find('.url a'),
-				url_text:$('.share-pane .modal-container').find('.url a .text'),
+				url_text:$('.share-pane .modal-container').find('.url .text'),
 				twitter_link:$('.share-pane .modal-container').find('.twitter a'),
-				facebook_link:$('.share-pane .modal-container').find('.fb a')
+				facebook_link:$('.share-pane .modal-container').find('.fb a'),
+				embed_toggle_btn:$('.share-pane .modal-container').find('.embed-toggle-button'),
+				embed_drawer:$('.share-pane .modal-container').find('.embed-drawer'),
+				embed_width:$('.share-pane .modal-container').find('input.embed-width'),
+				embed_height:$('.share-pane .modal-container').find('input.embed-height')
 			}
 		};
 		
@@ -87,10 +90,12 @@
 				'image=' + window.escape('http://itsalmo.st/img/favicon/bigfavicon.png') + '&' +
 				'description=' + 'A snazzy free countdown tool by Type/Code';
 			
-			elements.modal.url_link.attr('href',url);
 			elements.modal.url_text.text(url);
 			elements.modal.twitter_link.attr('href',twitter_url);
 			elements.modal.facebook_link.attr('href',facebook_url);
+			
+			timerid = window.escape(d.id);
+			generateEmbedCode(timerid);
 		});
 		
 		app.events.bind('timer.view.timerExpired',function(){
@@ -109,7 +114,21 @@
 			window.open(elements.modal.twitter_link.attr('href'), 'Twitter', opts);
 		});
 		
-		/* handle modal hiding and showing */
+		
+		
+		/* SHARE MODAL STUFF */
+		var embedDrawerShowing, modalContainerOffset, defaultEmbedWidth, defaultEmbedHeight, minEmbedWidth, minEmbedHeight, timerid;
+		
+		embedDrawerShowing = false;
+		modalContainerOffset = "70px";
+		
+		defaultEmbedWidth = 400;
+		defaultEmbedHeight = 250;
+		
+		minEmbedWidth = 275;
+		minEmbedHeight = 200;
+		
+		/* show sharing modal */
 		elements.share_button.bind('click',function() {
 			if($(this).hasClass('disabled')){
 				return;
@@ -135,6 +154,7 @@
 			})(elements.modal.container);			
 		});
 		
+		/* hide sharing modal */
 		tc.jQ('#share-done-btn, .share-pane .modal-overlay').click(function(e) {
 			e.preventDefault();
 			if (elements.body.hasClass('browser-ipad')) {
@@ -146,6 +166,47 @@
 			};
 		});
 		
+		/* toggle widget embed drawer */
+		elements.modal.embed_toggle_btn.click(function() {			
+			if (embedDrawerShowing == false) {
+				modalTopOffset = elements.modal.container.css('top');
+				elements.modal.embed_toggle_btn.addClass('open').find('span').text('-');
+				elements.modal.embed_drawer.slideDown(450, function(){
+					embedDrawerShowing = true;
+				});
+				elements.modal.container.animate({top: "-=" + modalContainerOffset}, 450);
+			} else {
+				elements.modal.embed_drawer.slideUp(300, function(){
+					elements.modal.embed_toggle_btn.removeClass('open').find('span').text('+');
+					embedDrawerShowing = false;
+				});
+				elements.modal.container.animate({top: "+=" + modalContainerOffset}, 300);
+			}
+		});
+		
+		/* validate and generate new embed code if someone enters a custom widget size */
+		elements.modal.embed_drawer.find('input').blur(function() {
+			var valWidth = elements.modal.embed_width.val();
+			var valHeight = elements.modal.embed_height.val()
+			
+			if (valWidth < minEmbedWidth || valHeight < minEmbedHeight) {
+				elements.modal.embed_drawer.find('textarea').text('Please keep your widget to over '+ minEmbedWidth + ' pixels wide and ' + minEmbedHeight + ' pixels tall');
+			} else {
+				generateEmbedCode(timerid, valWidth, valHeight)
+			};
+		});
+		
+		/* generate the embed code */
+		function generateEmbedCode(id, width, height) {
+			if (!width) { width = defaultEmbedWidth }
+			if (!height) { height = defaultEmbedHeight }
+			
+			var embedCode = '<iframe src="http://itsalmo.st/#' + id + '" width="' + width + '" height="' + height + '" style="border: 1px solid #dbd8d7"></iframe>';
+			elements.modal.embed_drawer.find('textarea').text(embedCode);
+		};
+		
+		
+		/* FOOTER SOCIAL MEDIA ROTATER */
 		var socialRotator = new NI.SocialRotator({
 			element:tc.jQ('.footer .spread')
 		});
