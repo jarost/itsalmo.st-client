@@ -2,6 +2,7 @@
 <html>
 	<head>
 			<title>It's Almost</title>
+			<meta name="description" content="itsalmo.st is a snazzy free countdown tool designed and developed by Type/Code. Create and share your own countdown to anything." />
 			
 <!--                                                  
               _____                    _____          
@@ -28,23 +29,23 @@
                                      TYPE/CODE        
                               From 2010 till infinity 
                                                       
-       It's Almost...                                 
-        Version 1.0.6                                 
-                                                      
-                                                    -->
+			It's Almost...
+			Version 1.1							-->
+			
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 			
 			<!-- Chartbeat -->
 			<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
 			
-			<meta name="description" content="A snazzy free countdown tool by Type/Code">
+			<meta name="viewport" content="width=768; user-scalable=0;" />
 			<meta name="apple-mobile-web-app-capable" content="yes" />
 			<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 			
-			<link rel="stylesheet" href="./css/lib/typecode-css/reset.css" type="text/css" media="screen" charset="utf-8" />
-			<link rel="stylesheet" href="./css/lib/typecode-css/skin.overlay.css" type="text/css" media="screen" charset="utf-8" />
-			<link rel="stylesheet" href="./css/lib/typecode-css/skin.tooltip.css" type="text/css" media="screen" charset="utf-8" />
+			<link rel="stylesheet" href="./css/lib/typecode-css/reset.css" type="text/css" media="screen" />
+			<link rel="stylesheet" href="./css/lib/typecode-css/skin.overlay.css" type="text/css" media="screen" />
+			<link rel="stylesheet" href="./css/lib/typecode-css/skin.tooltip.css" type="text/css" media="screen" />
 			
-			<link rel="stylesheet" href="./css/main.css" type="text/css" media="screen" charset="utf-8" />
+			<link rel="stylesheet" href="./css/main.css" type="text/css" media="screen" />
 			
 			<!--[if IE]>
 			<link rel="stylesheet" href="./css/ie/ie.css" type="text/css" media="screen" charset="utf-8"/>
@@ -65,8 +66,8 @@
 			<link rel="apple-touch-icon" href="./img/favicon/apple-touch-icon-57x57.png"/>
 			<link rel="apple-touch-icon" sizes="72x72" href="./img/favicon/apple-touch-icon-72x72.png"/>
 			<link rel="apple-touch-icon" sizes="114x114" href="./img/favicon/apple-touch-icon-114x114.png"/>
-			<link rel="apple-touch-startup-image" href="./img/favicon/splash-iphone-lowres.png" media="screen and (min-device-width: 200px) and (max-device-width: 640px)" />
-			<link rel="apple-touch-startup-image" href="./img/favicon/splash-ipad-portrait.png" media="screen and (min-device-width: 768px)" />
+			<link rel="apple-touch-startup-image" href="./img/favicon/splash-ipad-portrait.png" media="no mobile, screen and (device-width: 768px)" />
+			<link rel="apple-touch-startup-image" href="./img/favicon/splash-iphone-lowres.png" media="mobile" />
 			
 			<meta property="og:site_name" content="ItsAlmo.st"/>
 			<meta property="og:image" content="http://itsalmo.st/img/favicon/bigfavicon.png"/>
@@ -110,7 +111,7 @@
 						<div class='countdown-name-empty-overlay' style='opacity:0.0;'></div>
 					</div>
 					
-					<p class='url'><span class="membrane">URL: http://itsalmo.st/#<span class='url_id'>&nbsp;</span><img class='url_id_loader' style='display:none;' src='img/loader_16.gif'></img><span class="gradient left-right-gradient"></span></span></p>
+					<p class='url'><span class="membrane">URL: http://itsalmo.st/#<span class='url_id'>&nbsp;</span><img class='url_id_loader' style='display:none;' src='img/loader_16.gif' alt='' /><span class="gradient left-right-gradient"></span></span></p>
 					
 					<div class='tier countdown-details'>
 						<div class="detail date">
@@ -157,7 +158,7 @@
 					<div class='finished-pane' style='display:none;'>
 						<p class='description'><span class='qualified'>Beer Time</span> <span class='qualifier'> was at</span><br /><span class='sub-qualifier'><span class='time'>5:00PM</span> on <span class='date'>8/12/2011</span></span></p>
 						<p class='again'>You can count down to <span class='qualified'>Beer Time</span> again&hellip;</p>
-						<a id='start-btn' class='btn' href='#'>
+						<a id='restart-btn' class='btn' href='#'>
 							<span>make a new countdown</span>
 						</a>
 					</div>
@@ -169,7 +170,23 @@
 					<div class='modal-container' style="display: none">
 						<div class='modal'>
 							<ul>
-								<li class="url"><a href=""><span class="icon">URL</span><span class="text">itsalmo.st/#beertime</span></a></li>
+								<li class="url">
+									<span class="wrap"><span class="icon">URL</span><span class="text">itsalmo.st/#beertime</span></span>
+									<div class="embed-toggle-button"><span>+</span>Embed widget</div>
+									<div class="embed-drawer" style="display:none">
+										<div class="row">
+											<input type="text" id="embed-width" class="embed-width" name="embed-width" value="400" />
+											<span class="floated">px wide</span>
+											<span class="floated divider">x</span>
+											<input type="text" id="embed-height" class="embed-height" name="embed-height" value="250" />
+											<span class="floated">px tall</span>
+										</div>
+										<div class="clear"></div>
+										<div class="row">
+											<textarea></textarea>
+										</div>
+									</div>
+								</li>
 								<li class="twitter"><a href="http://twitter.com/share?url=http%3A%2F%2Fitsalmo.st&amp;text=It&#39s%20Almost%20Countdown%20Name&#58;" target="_blank"><span class="icon"></span><span class="text">Share this countdown on Twitter</span></a></li>
 								<li class="fb"><a href=""><span class="icon"></span><span class="text">Share this countdown on Facebook</span></a></li>
 							</ul>
@@ -224,8 +241,9 @@
 						</a>
 					</div>
 				</div>
-			</div>
-			
+			</div><!-- end footer -->
+
+
 			
 			<!-- json2 http://www.json.org/js.html -->
 			<script type='text/javascript' src='./js/lib/json2.js'></script>

@@ -1,2 +1,6 @@
 .footer { left: 0; right: 0; }
 .footer .social a { filter: none; }
+
+body.widget .content { display: block; }
+body.widget .timer-pane { position: absolute; }
+body.widget .timer-pane > div { margin-top: 7%; }

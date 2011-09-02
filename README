@@ -23,8 +23,9 @@
                               From 2010 till infinity 
 
        It's Almost...
-        Version 1.0.6
+        Version 1.1
 
+1.1 - added embed widget, fixes invalid cookie
 1.0.6 - fixes the finished state flickr
 1.0.5 - removed opera condition from browser detection
 1.0.4.3 - fixing apostrophe in it's as per Type Kit suggestion
