@@ -211,6 +211,10 @@
 			element:tc.jQ('.footer .spread')
 		});
 		
+		
+		/* FADE IN THE FOOTER */
+		dom.fadeIn(1500);
+		
 	});
 	
 })(this);
