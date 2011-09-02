@@ -1,5 +1,5 @@
 .footer .social a { filter: dropshadow(color=#ffffff, offx=1, offy=1); }
 
 body.widget .browser-invalid { visibility:hidden; }
-body.widget .footer { border: none; background-color: transparent; }
+body.widget .footer { border: none; background-color: transparent; visibility: visible; }
 body.widget .footer .spread { display: none; }
