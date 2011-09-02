@@ -120,7 +120,7 @@
 		var embedDrawerShowing, modalContainerOffset, defaultEmbedWidth, defaultEmbedHeight, minEmbedWidth, minEmbedHeight, timerid;
 		
 		embedDrawerShowing = false;
-		modalContainerOffset = "70px";
+		modalContainerOffset = "55px";
 		
 		defaultEmbedWidth = 400;
 		defaultEmbedHeight = 250;
