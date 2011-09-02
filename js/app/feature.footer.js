@@ -201,7 +201,7 @@
 			if (!width) { width = defaultEmbedWidth }
 			if (!height) { height = defaultEmbedHeight }
 			
-			var embedCode = '<iframe src="http://itsalmo.st/#' + id + '" width="' + width + '" height="' + height + '" style="border: 1px solid #dbd8d7"></iframe>';
+			var embedCode = '<iframe src="http://itsalmo.st/#' + id + ':embed" width="' + width + '" height="' + height + '" style="border: 1px solid #dbd8d7"></iframe>';
 			elements.modal.embed_drawer.find('textarea').text(embedCode);
 		};
 		

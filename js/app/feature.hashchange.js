@@ -11,6 +11,12 @@
 		
 		$w = $(window);
 		$w.hashchange(function(){
+			if(window.location.hash.split(':')[1] == 'embed'){
+				$('body').addClass('widget');
+			} else {
+				$('body').removeClass('widget');
+			}
+			
 			if(window.location.hash.indexOf('?') > -1){
 				//strip out the get vars added by facebook redirect
 				window.location.hash = window.location.hash.split('?')[0];

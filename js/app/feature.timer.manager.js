@@ -68,7 +68,7 @@
 		});
 		
 		app.events.bind('hashchange.hashChanged',function(e,d){
-			get_timer(d.hash);
+			get_timer(d.hash.split(':')[0]);
 		});
 		
 	});

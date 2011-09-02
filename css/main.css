@@ -302,7 +302,7 @@ body.widget { background-color: white; height: 100%; width: 100%;}
 body.widget .footer { opacity: 0; 
 	-webkit-transition: opacity 750ms ease; -moz-transition: opacity 750ms ease; -o-transition: opacity 750ms ease; transition: opacity 750ms ease;}
 body.widget:hover .footer { opacity: 1; }
-body.widget .timer-pane > div { position: relative; top: -5px; }
+body.widget .timer-pane > div { position: relative; margin-top: 20%; }
 body.widget .timer-pane .description { font-size: 30px; line-height: 32px; padding: 0 20px; margin-bottom: 25px;}
 body.widget .timer-pane .timer { font-size: 22px; line-height: 24px; margin-left: 15px; margin-right: 10px;}
 body.widget .timer-pane .timer .seconds-container { min-width: 142px; }
