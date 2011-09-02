@@ -11,7 +11,7 @@
 		var timer_cookies, timers;
 		
 		timer_cookies = new NI.Cookies({
-			namespace:'itsalmost-user-timers'
+			namespace:'itsalmostusertimers'
 		});
 		
 		app.events.bind('timer.manager.timerCreated',function(e,d){
