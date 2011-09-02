@@ -298,17 +298,28 @@ body.browser-ipad .timer-pane { margin-top: 3%; }
 
 
 /* widget styling */
-body.widget { background-color: white; height: 100%; width: 100%;}
-body.widget .footer { opacity: 0; 
-	-webkit-transition: opacity 750ms ease; -moz-transition: opacity 750ms ease; -o-transition: opacity 750ms ease; transition: opacity 750ms ease;}
-body.widget:hover .footer { opacity: 1; }
-body.widget .timer-pane > div { position: relative; margin-top: 20%; }
-body.widget .timer-pane .description { font-size: 30px; line-height: 32px; padding: 0 20px; margin-bottom: 25px;}
+body.widget,
+body.widget .content { background-color: white; height: 100%; width: 100%;}
+body.widget .content { display: table; vertical-align: middle; }
+
+body.widget .start-pane,
+body.widget .finished-pane .again,
+body.widget .finished-pane #restart-btn { display: none; }
+
+body.widget .timer-pane { position: static; display: table-cell; vertical-align: middle; }
+body.widget .timer-pane > div { position: relative; margin-top: -4%; }
+body.widget .timer-pane .description,
+body.widget .finished-pane .description,
+body.widget .finished-pane .description .sub-qualifier { font-size: 30px; line-height: 32px; padding: 0 20px; }
+body.widget .timer-pane .description { margin-bottom: 25px; }
 body.widget .timer-pane .timer { font-size: 22px; line-height: 24px; margin-left: 15px; margin-right: 10px;}
 body.widget .timer-pane .timer .seconds-container { min-width: 142px; }
 body.widget .timer-pane .timer span.milliseconds { width: 24px; }
+body.widget .finished-pane .description { margin-bottom: 0; }
 
-body.widget .footer { background-color: #fafafa; border-top: 1px solid #eee; min-height: 40px;}
+body.widget .footer { opacity: 0; background-color: #fafafa; border-top: 1px solid #eee; min-height: 40px;
+	-webkit-transition: opacity 750ms ease; -moz-transition: opacity 750ms ease; -o-transition: opacity 750ms ease; transition: opacity 750ms ease;}
+body.widget:hover .footer { opacity: 1; }
 body.widget .footer .spread { background-color: transparent; border: none; height: 22px; overflow: hidden; top: auto; left: 10px; bottom: 10px; opacity: 0.2;}
 body.widget .footer .spread:hover { opacity: 0.8; }
 body.widget .footer .spread .spread-button { left: 0; bottom: 0; }
